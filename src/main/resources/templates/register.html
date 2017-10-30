@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf/org">
+    <title>Register</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Możesz sie zarejestrować</h1>
+            <p>jeśli łaska!</p>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+            <!--<h1 th:text="${info}"></h1>-->
+            <form th:object="${registerForm}" action="/register" method="post">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                Imię <input type="text" th:field="*{name}"/>
+                <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+                Nazwisko <input type="text"  th:field="*{surname}" />
+                <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
+                <p th:if="${info} != null"><span th:text="${info}"></span></p>
+                Email (login) <input type="text"  th:field="*{login}" />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                Hasło <input type="text"  th:field="*{password}" />
+                <input type="submit" value="Wyślij"/>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
