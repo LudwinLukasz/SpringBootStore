@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf/org">
+<head>
+    <title>Produkty</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Produkty</h1>
+            <p>Wszystko co możemy Ci wcisnąć w dobrej cenie!</p>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+            <table border="1">
+                <tr>
+                    <td>Name</td>
+                    <td>Id</td>
+                </tr>
+                <tr th:each="product: ${products}">
+                    <td th:text="${product.name}">Author22</td>
+                    <td th:text="${product.productId}">Title22</td>
+                    <td>
+                    <a href="/prod/{product.productId}"
+                       th:href="@{/prod/__${product.productId}__}">view</a>
+                        <!--th:href="@{/prod/prod(prodId=${product.productId})}">view</a>-->
+                        <!--th:href="@{/product/comments(prodId=${prod.id})}"-->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
