@@ -2,14 +2,13 @@ package pl.SpringStore.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import pl.SpringStore.models.Product;
+import pl.SpringStore.models.repositories.Cart;
 import pl.SpringStore.models.repositories.FakeProductsRepo;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.*;
@@ -22,6 +21,8 @@ public class ProductsController {
 
    @Autowired
     FakeProductsRepo fakeProductsRepo;
+@Autowired
+Cart fakeOrder;
 
     List<String> idsList = new ArrayList<>();
     List<String> who = new ArrayList<>();
@@ -44,8 +45,8 @@ public class ProductsController {
             fakeProductsRepo.add(iPhone2);
             modelMap.addAttribute("products", fakeProductsRepo.getProducts());
         HttpSession session=request.getSession();
-
-        Enumeration<String> attributeNames = session.getAttributeNames();
+//session.getAttribute("sessionName");
+Enumeration<String> attributeNames = session.getAttributeNames();
         while(attributeNames.hasMoreElements()){
             String param = attributeNames.nextElement();
 
@@ -69,8 +70,16 @@ public class ProductsController {
         idsList.add(id);
         idsList.add( sessionHash.get("sessionName"));
         System.out.println(idsList);
+        fakeOrder.orderProd.add(id);
+        fakeOrder.userOrder=sessionHash.get("sessionName");
         return "redirect:/showproductslist";
     }
 
-
+    @GetMapping("/order")
+    // @ResponseBody
+    public String order(HttpServletRequest request, ModelMap modelMap) {
+        HttpSession session=request.getSession();
+        modelMap.addAttribute("imie",session.getAttribute("sessionName"));
+        return "order";
+    }
 }

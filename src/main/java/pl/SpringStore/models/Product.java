@@ -1,7 +1,9 @@
 package pl.SpringStore.models;
 
-import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+@Component
 public class Product {
     private String productId;
     private String name;

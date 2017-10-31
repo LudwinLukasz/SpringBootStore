@@ -16,21 +16,22 @@
 <section class="container">
     <div class="row">
         <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
-            <table border="1">
-                <tr>
-                    <td>Name</td>
-                    <td>Id</td>
-                </tr>
-                <tr th:each="product: ${products}">
-                    <td th:text="${product.name}">Author22</td>
-                    <td th:text="${product.productId}">Title22</td>
-                    <td>
-                    <a href="/prod/{product.productId}"
-                       th:href="@{/prod/__${product.productId}__}">view</a>
-                        <!--th:href="@{/prod/prod(prodId=${product.productId})}">view</a>-->
-                        <!--th:href="@{/product/comments(prodId=${prod.id})}"-->
-                    </td>
-                </tr>
+            <p th:text="${imie}"></p>
+            <!--<table border="1">-->
+                <!--<tr>-->
+                    <!--<td>Name</td>-->
+                    <!--<td>Id</td>-->
+                <!--</tr>-->
+                <!--<tr th:each="product: ${products}">-->
+                    <!--<td th:text="${product.name}">Author22</td>-->
+                    <!--<td th:text="${product.productId}">Title22</td>-->
+                    <!--<td>-->
+                    <!--<a href="/prod/{product.productId}"-->
+                       <!--th:href="@{/prod/__${product.productId}__}">view</a>-->
+                        <!--&lt;!&ndash;th:href="@{/prod/prod(prodId=${product.productId})}">view</a>&ndash;&gt;-->
+                        <!--&lt;!&ndash;th:href="@{/product/comments(prodId=${prod.id})}"&ndash;&gt;-->
+                    <!--</td>-->
+                <!--</tr>-->
             </table>
             <a href="/order">Order</a>
         </div>
