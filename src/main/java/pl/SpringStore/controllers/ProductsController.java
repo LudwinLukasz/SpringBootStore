@@ -21,10 +21,11 @@ public class ProductsController {
 
    @Autowired
     FakeProductsRepo fakeProductsRepo;
-@Autowired
-Cart fakeOrder;
+    @Autowired
+    Cart cart;
 
     List<String> idsList = new ArrayList<>();
+    Map<String,String> cartHash = new HashMap<>();
     List<String> who = new ArrayList<>();
 
     @RequestMapping("/addproduct")
@@ -67,11 +68,21 @@ Enumeration<String> attributeNames = session.getAttributeNames();
    // @ResponseBody
     public String index(@PathVariable String id, ModelMap modelMap){
        // modelMap.addAttribute("name", id);
-        idsList.add(id);
-        idsList.add( sessionHash.get("sessionName"));
+        String sessionN = sessionHash.get("sessionName");
+        idsList.add(sessionN);
         System.out.println(idsList);
-        fakeOrder.orderProd.add(id);
-        fakeOrder.userOrder=sessionHash.get("sessionName");
+//        if (idsList.size()>1) {
+//            if (idsList.get(idsList.size()-2).equals(sessionN)) {
+//                cart.orderProd.add(id);
+//            } else {
+//
+//                cart.orderProd.add(id);
+//            }
+//        } else {
+//            cart.orderProd.add(id);
+//        }
+        cart.orderProd.add(id);
+        cart.userOrder=sessionHash.get("sessionName");
         return "redirect:/showproductslist";
     }
 
@@ -79,7 +90,9 @@ Enumeration<String> attributeNames = session.getAttributeNames();
     // @ResponseBody
     public String order(HttpServletRequest request, ModelMap modelMap) {
         HttpSession session=request.getSession();
+        modelMap.addAttribute( "list" ,cart.orderProd);
+       // modelMap.addAttribute( "list" ,"alamakota");
         modelMap.addAttribute("imie",session.getAttribute("sessionName"));
-        return "order";
+        return "test";
     }
 }
