@@ -1,4 +1,4 @@
-package pl.SpringStore.models.forms;
+package pl.SpringStore.forms;
 
 import org.hibernate.validator.constraints.NotBlank;
 

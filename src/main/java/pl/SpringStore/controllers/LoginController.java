@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.SpringStore.models.forms.LoginForm;
-import pl.SpringStore.models.repositories.UserRepository;
+import pl.SpringStore.forms.LoginForm;
+import pl.SpringStore.repositories.UserCRUDRepository;
 
 import javax.validation.Valid;
 
@@ -18,7 +18,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     @Autowired
-    UserRepository userRepository;
+    UserCRUDRepository userCRUDRepository;
 
     @GetMapping("/signin")
     public String singnInGet(Model model) {
@@ -32,9 +32,9 @@ public class LoginController {
             return "signin";
         }
 
-        if(userRepository.findByLoginAndPassword(loginForm.getLogin(), loginForm.getPassword()).size() > 0) {
+        if(userCRUDRepository.findByLoginAndPassword(loginForm.getLogin(), loginForm.getPassword()).size() > 0) {
             System.out.println("dobry login");
-            String sessionName = (userRepository.findByLoginAndPassword(loginForm.getLogin(), loginForm.getPassword()).get(0)).getName();
+            String sessionName = (userCRUDRepository.findByLoginAndPassword(loginForm.getLogin(), loginForm.getPassword()).get(0)).getName();
             model.addAttribute("sessionName",sessionName);
             model.addAttribute("sessionIsLogged", true);
             return "redirect:/";

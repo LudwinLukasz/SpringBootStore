@@ -26,12 +26,9 @@ public class EmailSenderImpl implements EmailSender {
             helper.setFrom("projekt2017@interia.pl");
             helper.setSubject(title);
             helper.setText(content, true);
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
         javaMailSender.send(mail);
     }
-
 }

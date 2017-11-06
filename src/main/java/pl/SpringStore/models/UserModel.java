@@ -1,7 +1,7 @@
 package pl.SpringStore.models;
 
-import pl.SpringStore.models.forms.LoginForm;
-import pl.SpringStore.models.forms.RegisterForm;
+import pl.SpringStore.forms.LoginForm;
+import pl.SpringStore.forms.RegisterForm;
 
 import javax.persistence.*;
 
