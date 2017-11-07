@@ -1,24 +1,48 @@
 package pl.SpringStore.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.SpringStore.models.Product;
+import org.springframework.web.bind.annotation.*;
+import pl.SpringStore.repositories.CartRepository;
+import pl.SpringStore.repositories.ProductCRUDRepository;
+import pl.SpringStore.services.ProductService;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
+@SessionAttributes({"sessionName", "sessionIsLogged"})
 public class ProductController {
+
+    Map<String,String> sessionHash = new HashMap<>(  );
+
+    @Autowired
+    private ProductService productService;
+    //@Autowired
+    //CartRepository cart;
+
+    List<String> listcontrol= new ArrayList<>(  );
 
     @RequestMapping("/products")
     public String list(Model model) {
-        Product iPhone = new Product("P1234", "iPhone 5s", new BigDecimal(2200));
-        iPhone.setDescription("Apple iPhone 5s, smarkfon z 4 calowym dotykowym wyświetlaczem o rozdzielczości 640x1136" +
-                " oraz 8 megapikselowym aparatem");
-        iPhone.setCategory("Smartfony");
-        iPhone.setManufacturer("Apple");
-        iPhone.setUnitsInStock(100);
-        model.addAttribute("product", iPhone);
+        model.addAttribute("products", productService.findAll());
         return "products";
     }
+
+//    @RequestMapping(value = "/product", method = RequestMethod.GET)
+//    public String getProductById(@RequestParam("productId") int productId, Model model) {
+//        model.addAttribute("product", productRepository.getProductById(productId));
+//        return "product";
+//    }
+
+    @GetMapping("/{productId}")
+    public String getProductById(@RequestParam("productId") int productId, Model model) {
+        model.addAttribute("products", productService.findByProductId(productId));
+        return "product";
+    }
+
+    //http://localhost:8080/product?productId=1235
 }

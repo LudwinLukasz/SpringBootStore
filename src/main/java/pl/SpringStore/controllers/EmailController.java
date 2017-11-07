@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.SpringStore.models.repositories.UserRepository;
+import pl.SpringStore.repositories.UserCRUDRepository;
 import pl.SpringStore.services.EmailSender;
 
 /**
@@ -16,7 +16,7 @@ import pl.SpringStore.services.EmailSender;
 public class EmailController {
 
     @Autowired
-    UserRepository userRepository;
+    UserCRUDRepository userCRUDRepository;
 
     private final EmailSender emailSender;
 
@@ -33,7 +33,7 @@ public class EmailController {
     @RequestMapping("/email")
     public String send(@RequestParam("email") String email, Model model) {
         model.addAttribute("info","twoje hasło zostało wysłane");
-        String content = "Twoje hasło to: "+userRepository.findByLogin(email).get(0).getPassword();
+        String content = "Twoje hasło to: "+ userCRUDRepository.findByLogin(email).get(0).getPassword();
          emailSender.sendEmail(email, "Przypomnienie hasła", content);
          return "forgotpassword";
     }

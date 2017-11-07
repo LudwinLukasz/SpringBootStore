@@ -1,10 +1,6 @@
-package pl.SpringStore.models.forms;
+package pl.SpringStore.forms;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
 /**
  * Created by arabk on 26.10.2017.ń

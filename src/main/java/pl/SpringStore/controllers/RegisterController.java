@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.SpringStore.models.UserModel;
-import pl.SpringStore.models.forms.RegisterForm;
-import pl.SpringStore.models.repositories.UserRepository;
+import pl.SpringStore.forms.RegisterForm;
+import pl.SpringStore.repositories.UserCRUDRepository;
 
 import javax.validation.Valid;
 
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 public class RegisterController {
 
     @Autowired
-    UserRepository userRepository;
+    UserCRUDRepository userCRUDRepository;
 
     @GetMapping("/register")
     public String registerGet(Model model) {
@@ -39,11 +39,11 @@ public class RegisterController {
         model.addAttribute("sessionName", registerForm.getName());
         model.addAttribute("sessionIsLogged", true);
 
-        if(userRepository.findByLogin(registerForm.getLogin()).size() > 0) {
+        if(userCRUDRepository.findByLogin(registerForm.getLogin()).size() > 0) {
            model.addAttribute("info","Taki login istnieje");
             return "register";
         } else {
-            userRepository.save(new UserModel(registerForm));
+            userCRUDRepository.save(new UserModel(registerForm));
             System.out.println("zarejestrowano");
             return "redirect:/";
         }

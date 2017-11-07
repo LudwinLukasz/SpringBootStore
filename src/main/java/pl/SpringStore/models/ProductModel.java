@@ -1,33 +1,39 @@
 package pl.SpringStore.models;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-public class Product {
-    private String productId;
+@Entity
+@Table(name="product")
+public class ProductModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer productId;
+
     private String name;
     private BigDecimal unitPrice;
     private String description;
     private String manufacturer;
     private String category;
     private long unitsInStock;
-    private long unitsOnOrder;
+    private long unitsInOrder;
     private boolean discounted;
-    private String condition;
 
-    public Product() {
+    public ProductModel() {
     }
 
-    public Product(String productId, String name, BigDecimal unitPrice) {
-        this.productId = productId;
-        this.name = name;
-        this.unitPrice = unitPrice;
+    public ProductModel(int productId, String name, BigDecimal unitPrice) {
+        this.productId=productId;
+        this.name=name;
+        this.unitPrice=unitPrice;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
@@ -80,11 +86,11 @@ public class Product {
     }
 
     public long getUnitsOnOrder() {
-        return unitsOnOrder;
+        return unitsInOrder;
     }
 
     public void setUnitsOnOrder(long unitsOnOrder) {
-        this.unitsOnOrder = unitsOnOrder;
+        this.unitsInOrder = unitsInOrder;
     }
 
     public boolean isDiscounted() {
@@ -93,39 +99,6 @@ public class Product {
 
     public void setDiscounted(boolean discounted) {
         this.discounted = discounted;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Product other = (Product) obj;
-        if (productId == null) {
-            if (other.productId != null)
-                return false;
-        } else  if (!productId.equals(other.productId))
-            return false;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result + ((productId == null) ? 0 : productId.hashCode());
-        return result;
     }
 
     @Override
