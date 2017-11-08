@@ -16,25 +16,26 @@
     <div class="row">
         <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
             <!--<h1 th:text="${info}"></h1>-->
-            <form th:object="${loginForm}" action="/signin" method="post">
-                <!--<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
-                <!--Imię <input type="text" th:field="*{name}"/>-->
-                <!--<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>-->
-                <!--Nazwisko <input type="text"  th:field="*{surname}" />-->
+            <form class="form-signin" th:object="${loginForm}" action="/signin" method="post">
+                <h2 class="form-signin-heading">Zaloguj się</h2>
+                <label for="inputEmail" class="sr-only">Email address</label>
                 <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
-                Email <input type="text"  th:field="*{login}" />
+                Email <input type="email" th:field="*{login}" id="inputEmail" class="form-control" placeholder="Email address" required autofocus/>
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 Hasło <input type="password"  th:field="*{password}" />
                 <input type="submit" value="Wyślij"/>
             </form>
-            <p> to jest złe</p>
             <p th:if="${wrong}" th:text="${wrong}"></p>
             <a class="btn btn-info" href="/forgotpassword">Przypomnij hasło</a>
             <a class="btn btn-warning" th:href="@{/register}">Nie mam konta</a>
         </div>
     </div>
 </section>
-
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
