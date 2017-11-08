@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import pl.SpringStore.models.ProductModel;
 import pl.SpringStore.repositories.ProductCRUDRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 @Service
@@ -17,6 +19,8 @@ public class ProductService {
 
     @Autowired
     ProductCRUDRepository productCRUDRepository;
+
+    public List<ProductModel> products = new ArrayList<>();
 
     public Iterable<ProductModel> findAll() {
         try {
@@ -36,5 +40,15 @@ public class ProductService {
             log.error("Product with id={} does not exist");
         }
         return null;
+    }
+
+    public List<ProductModel> findByName(String name) {
+        List<ProductModel> productList = new ArrayList<>();
+        for (ProductModel p : productCRUDRepository.findAll()) {
+            if (p.getName().toLowerCase().contains(name.toLowerCase())) {
+                productList.add(p);
+            }
+        }
+        return productList;
     }
 }
