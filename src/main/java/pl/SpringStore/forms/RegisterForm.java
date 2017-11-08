@@ -2,18 +2,23 @@ package pl.SpringStore.forms;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * Created by arabk on 26.10.2017.
  */
 public class RegisterForm {
 
     @NotBlank
+    @Pattern(regexp ="^[A-Za-z0-9_-żźćńółęąśŻŹĆĄŚĘŁÓŃ]{1,25}$")
     private String name;
 
     @NotBlank
+    @Pattern(regexp ="^[A-Za-z0-9_-żźćńółęąśŻŹĆĄŚĘŁÓŃ]{1,25}$")
     private String surname;
 
     @NotBlank
+    @Pattern(regexp ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
     private String login;
 
     @NotBlank
