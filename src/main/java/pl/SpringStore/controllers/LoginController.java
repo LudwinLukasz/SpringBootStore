@@ -38,7 +38,6 @@ public class LoginController {
             model.addAttribute("sessionName",sessionName);
             model.addAttribute("sessionIsLogged", true);
             return "redirect:/";
-// test
         } else if (userCRUDRepository.findOneByLogin(loginForm.getLogin()) != null) {
             model.addAttribute("wrong","Wrong Password");
             System.out.println("złe hasło dla "+userCRUDRepository.findOneByLogin(loginForm.getLogin()));

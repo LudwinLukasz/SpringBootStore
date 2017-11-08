@@ -27,6 +27,7 @@
                 Hasło <input type="password"  th:field="*{password}" />
                 <input type="submit" value="Wyślij"/>
             </form>
+            <p> to jest złe</p>
             <p th:if="${wrong}" th:text="${wrong}"></p>
             <a href="/forgotpassword">Przypomnij hasło</a>
         </div>
