@@ -3,6 +3,7 @@ package pl.SpringStore.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import pl.SpringStore.repositories.CartRepository;
 import pl.SpringStore.repositories.ProductCRUDRepository;
@@ -44,5 +45,13 @@ public class ProductController {
         return "product";
     }
 
-    //http://localhost:8080/product?productId=1235
+    @GetMapping("/products")
+    String search(@RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
+        if (q != null) {
+            modelMap.addAttribute("products", productService.findByName(q));
+        } else {
+            modelMap.addAttribute("products", productService.findAll());
+        }
+        return "products";
+    }
 }
