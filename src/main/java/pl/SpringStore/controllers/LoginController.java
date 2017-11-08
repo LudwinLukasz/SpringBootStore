@@ -38,8 +38,14 @@ public class LoginController {
             model.addAttribute("sessionName",sessionName);
             model.addAttribute("sessionIsLogged", true);
             return "redirect:/";
+//        } else if (userCRUDRepository.findByLogin(loginForm.getLogin()).size() > 0) {
+        } else if (userCRUDRepository.findOneByLogin(loginForm.getLogin()) != null) {
+            model.addAttribute("wrong","Wrong Password");
+            System.out.println("złe hasło dla "+userCRUDRepository.findOneByLogin(loginForm.getLogin()));
+            return "signin";
         } else {
-            System.out.println("nie ma takiego logina");
+            model.addAttribute("wrong","Taki login nie istnieje");
+            System.out.println("nie ma takiego loginu");
             return "signin";
         }
 

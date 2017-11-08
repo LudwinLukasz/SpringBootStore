@@ -14,4 +14,5 @@ public interface UserCRUDRepository extends CrudRepository<UserModel, Integer> {
 
         List<UserModel> findByLoginAndPassword(String login, String password);
         List<UserModel> findByLogin(String login);
+        UserModel findOneByLogin(String login);
 }
