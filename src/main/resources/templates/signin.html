@@ -29,7 +29,8 @@
             </form>
             <p> to jest złe</p>
             <p th:if="${wrong}" th:text="${wrong}"></p>
-            <a href="/forgotpassword">Przypomnij hasło</a>
+            <a class="btn btn-info" href="/forgotpassword">Przypomnij hasło</a>
+            <a class="btn btn-warning" th:href="@{/register}">Nie mam konta</a>
         </div>
     </div>
 </section>
