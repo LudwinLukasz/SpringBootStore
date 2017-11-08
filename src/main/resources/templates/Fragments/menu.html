@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:spring="http://java.sun.com/xml/ns/javaee" xmlns:th="http://www.w3.org/1999/xhtml">
+<title>menu</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:fragment="menu">
+    <section>
+        <div class="jumbotron">
+
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <h1 class="navbar-brand">Produkty</h1>
+                    <p>Wszystko co możemy Ci wcisnąć w dobrej cenie!</p>
+                    <form action="#" method="get">
+                        <div class="input-field">
+                            <input name="q" type="search" placeholder="Szukaj..."
+                                   required="required" autocomplete="off"/>
+                            <button class="btn" type="submit">Szukaj</button>
+                        </div>
+                    </form>
+                    <div class="nav navbar-nav navbar-right">
+                        <a href="#">
+                            <button class="btn" value="Koszyk">Koszyk</button>
+                        </a>
+                        <a href="#">
+                            <button class="btn" value="Wyloguj">Wyloguj</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
