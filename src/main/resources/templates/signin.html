@@ -24,9 +24,10 @@
                 <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
                 Email <input type="text"  th:field="*{login}" />
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-                Hasło <input type="text"  th:field="*{password}" />
+                Hasło <input type="password"  th:field="*{password}" />
                 <input type="submit" value="Wyślij"/>
             </form>
+            <p th:if="${wrong}" th:text="${wrong}"></p>
             <a href="/forgotpassword">Przypomnij hasło</a>
         </div>
     </div>
