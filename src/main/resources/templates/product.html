@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf/org" xmlns:spring="http://java.sun.com/xml/ns/javaee">
 <title>Produkty</title>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 <section>
     <div class="jumbotron">
         <div class="container">
-            <h1>Produkty</h1>
-            <p>Wszystko co możemy Ci wcisnąć w dobrej cenie!</p>
+            <h1>Produkt</h1>
+            <p th:text="${product.name}"></p>
         </div>
     </div>
 </section>
 <section class="container">
-    <div class="row" >
-        <div class="col-sm-6 col-md-3" style="padding-bottom: 15px" th:each="p: ${products}">
-            <div class="thumbnail">
-                <div class="caption" href="">
-                    <h3><span th:text="${p.name}"></span></h3>
-                    <p><span th:text="${p.description}"></span></p>
-                    <p><span th:text="${p.unitPrice}"></span> PLN</p>
-                    <p><span th:text="${p.unitsInStock}"></span> sztuk</p>
-                    <button class="btn"><a th:href="@{/product?productId=__${p.productId}__}">Pokaż </a></button>
-                </div>
+    <div class="row">
+        <div class="thumbnail">
+            <div class="caption" href="">
+                <h3><span th:text="${product.name}"></span></h3>
+                <p><span th:text="${product.description}"></span></p>
+                <p><span th:text="${product.unitPrice}"></span> PLN</p>
+                <p><span th:text="${product.unitsInStock}"></span> sztuk</p>
+                <a href="/products" class="btn btn-primary btn-large">Powrót</a>
+                <button class="btn btn-warning btn-large">Dodaj do koszyka xD</button>
             </div>
         </div>
     </div>
 </section>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </body>
 </html>
