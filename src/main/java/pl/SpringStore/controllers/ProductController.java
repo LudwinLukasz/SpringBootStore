@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Controller
 @SessionAttributes({"sessionName", "sessionIsLogged"})
+@RequestMapping("/products")
 public class ProductController {
 
     Map<String,String> sessionHash = new HashMap<>(  );
@@ -25,27 +26,21 @@ public class ProductController {
     //@Autowired
     //CartRepository cart;
 
-    List<String> listcontrol= new ArrayList<>(  );
+    //List<String> listcontrol= new ArrayList<>(  );
 
-    @RequestMapping("/products")
+    @RequestMapping("")
     public String list(Model model) {
         model.addAttribute("products", productService.findAll());
         return "products";
     }
 
-//    @RequestMapping(value = "/product", method = RequestMethod.GET)
-//    public String getProductById(@RequestParam("productId") int productId, Model model) {
-//        model.addAttribute("product", productRepository.getProductById(productId));
-//        return "product";
-//    }
-
-    @GetMapping("/{productId}")
-    public String getProductById(@RequestParam("productId") int productId, Model model) {
-        model.addAttribute("products", productService.findByProductId(productId));
+    @GetMapping("/product")
+    public String getProductById(@RequestParam(value = "productId") String productId, Model model) {
+        model.addAttribute("product", productService.findByProductId(Integer.parseInt(productId)));
         return "product";
     }
 
-    @GetMapping("/products")
+    @GetMapping("")
     String search(@RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
         if (q != null) {
             modelMap.addAttribute("products", productService.findByName(q));

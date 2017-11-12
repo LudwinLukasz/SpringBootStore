@@ -27,14 +27,14 @@ public class ProductService {
             return productCRUDRepository.findAll();
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Exception occured during connection to database.");
+            log.error("Exception occurred during connection to database.");
             return Collections.emptyList();
         }
     }
 
-    public ProductModel findByProductId(Integer productId) {
+    public ProductModel findByProductId(int productId) {
         try {
-            return productCRUDRepository.findOne(productId);
+            return productCRUDRepository.findByProductId(productId);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Product with id={} does not exist");
