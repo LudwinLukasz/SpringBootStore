@@ -18,27 +18,27 @@
         <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
 
             <table border="1">
-            <tr>
-            <td>Id</td>
-             <td>Imie</td>
-                <td>Ilość zamówiona</td>
-            </tr>
+                <tr>
+                    <td>Id</td>
+                    <td>Imie</td>
+                    <!--<td>Ilość zamówiona</td>-->
+                </tr>
                 <!--<tr th:foreach="${list}"></tr>-->
                 <!--<td th:text="${productId}">Id</td>-->
                 <!--<tr th:text="product: ${list}">-->
-                    <!--+                    <td th:text="${product.sessionName}">Name</td>-->
-                    <!--+                    <td th:text="${product.productId}">Id</td>-->
-                    <!--+                    <td>-->
-            <!--&lt;!&ndash;th:href="@{/prod/prod(prodId=${product.productId})}">view</a>&ndash;&gt;-->
-            <!--th:href="@{/product/comments(prodId=${prod.id})}"-->
+                <!--+                    <td th:text="${product.sessionName}">Name</td>-->
+                <!--+                    <td th:text="${product.productId}">Id</td>-->
+                <!--+                    <td>-->
+                <!--&lt;!&ndash;th:href="@{/prod/prod(prodId=${product.productId})}">view</a>&ndash;&gt;-->
+                <!--th:href="@{/product/comments(prodId=${prod.id})}"-->
                 </tr>
-                <tr th:each="productId: ${list}">
-                    <td th:text="${productId}">Id</td>
-                    <td th:text="${name}">Imie</td>
-                    <td><a href="/order/{productId}"
-                           + th:href="@{/order/__${productId}__}">Usuń z koszyka</a></td>
+                <tr th:each="product: ${list}">
+                    <td th:text="${product.productId}">Id</td>
+                    <td th:text="${product.name}">Imie</td>
+                    <td><button class="btn"> <a href="/order/{product.productId}"
+                                                + th:href="@{/order/__${product.productId}__}">Usuń z koszyka</a></button></td>
                 </tr>
-            </tr>
+
             </table>
             <a href="order/cart.html" th:href="@{/order/cart}">Złóż zamówienie</a>
         </div>
