@@ -43,9 +43,10 @@ public class ProductController {
 
     //List<String> listcontrol= new ArrayList<>(  );
 
-    @GetMapping("")
+    @GetMapping("/")
     public ModelAndView showProductPage(@RequestParam("pageSize") Optional<Integer> pageSize,
-                                        @RequestParam("page") Optional<Integer> page) {
+                                        @RequestParam("page") Optional<Integer> page,
+                                        @RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
 
         ModelAndView modelAndView = new ModelAndView("products");
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
@@ -54,11 +55,16 @@ public class ProductController {
         Page<ProductModel> products = productServiceImpl.findAllPageable(new PageRequest(evalPage, evalPageSize));
         Pager pager = new Pager(products.getTotalPages(), products.getNumber(), BUTTONS_TO_SHOW);
 
-        modelAndView.addObject("products", products);
-        modelAndView.addObject("selectedPageSize", evalPageSize);
-        modelAndView.addObject("pageSizes", PAGE_SIZES);
-        modelAndView.addObject("pager", pager);
 
+        modelAndView.addObject("pager", pager);
+        if (q != null) {
+            modelAndView.addObject("products", productServiceImpl.findByName(q));
+
+        } else {
+            modelAndView.addObject("selectedPageSize", evalPageSize);
+            modelAndView.addObject("pageSizes", PAGE_SIZES);
+            modelAndView.addObject("products", products);
+        }
         return modelAndView;
     }
 
@@ -74,7 +80,7 @@ public class ProductController {
         return "product";
     }
 
-//   @GetMapping("")
+//   @GetMapping("/")
 //   String search(@RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
 //       if (q != null) {
 //           modelMap.addAttribute("products", productServiceImpl.findByName(q));

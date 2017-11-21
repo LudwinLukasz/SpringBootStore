@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 //@SessionAttributes({"sessionName","sessionIsLogged"})
 public class LogoutController {
-
     @GetMapping("/signout")
 //    public String singnOutGet(Model model) {;
 //        model.addAttribute("sessionIsLogged", false);
@@ -22,3 +21,4 @@ public class LogoutController {
     }
 
 }
+
