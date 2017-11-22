@@ -1,1 +1,1 @@
-# Projekt z Spring Boota, sklep internetowy
+# Spring Boot Project, online shop
