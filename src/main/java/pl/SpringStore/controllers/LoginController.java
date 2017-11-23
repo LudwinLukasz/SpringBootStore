@@ -49,6 +49,11 @@ public class LoginController {
         }
 
     }
+    @GetMapping("/login")
+    public String loginGet(Model model) {
+        //model.addAttribute("loginForm", new LoginForm());
+        return "login";
+    }
 
 
 }
