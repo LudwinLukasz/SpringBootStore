@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import pl.SpringStore.models.UserModel;
+//import pl.SpringStore.models.UserModel;
 import pl.SpringStore.forms.RegisterForm;
-import pl.SpringStore.repositories.UserCRUDRepository;
+import pl.SpringStore.models.Users;
+//import pl.SpringStore.repositories.UserCRUDRepository;
+import pl.SpringStore.repositories.UsersRepository;
 
 import javax.validation.Valid;
 
@@ -22,8 +24,11 @@ import javax.validation.Valid;
 @SessionAttributes({"sessionName","sessionIsLogged"})
 public class RegisterController {
 
+//    @Autowired
+//    UserCRUDRepository userCRUDRepository;
+
     @Autowired
-    UserCRUDRepository userCRUDRepository;
+    UsersRepository usersRepository;
 
     @GetMapping("/register")
     public String registerGet(Model model) {
@@ -39,14 +44,27 @@ public class RegisterController {
         model.addAttribute("sessionName", registerForm.getName());
         model.addAttribute("sessionIsLogged", true);
 
-        if(userCRUDRepository.findByLogin(registerForm.getLogin()).size() > 0) {
-           model.addAttribute("info","Taki login istnieje");
+//        if(userCRUDRepository.findByLogin(registerForm.getLogin()).size() > 0) {
+//           model.addAttribute("info","Taki login istnieje");
+//            return "register";
+//        } else {
+//            userCRUDRepository.save(new UserModel(registerForm));
+//            System.out.println("zarejestrowano");
+//            return "redirect:/";
+//        }
+
+        if(usersRepository.findByLogin(registerForm.getLogin()).isPresent()) {
+            model.addAttribute("info","Taki login istnieje");
             return "register";
         } else {
-            userCRUDRepository.save(new UserModel(registerForm));
+            usersRepository.save(new Users(registerForm));
+            //int newId = usersRepository.findByLogin(registerForm.getLogin()).get().getId();
+
+
             System.out.println("zarejestrowano");
             return "redirect:/";
         }
+
 
     }
 

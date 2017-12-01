@@ -4,6 +4,7 @@ import pl.SpringStore.forms.LoginForm;
 import pl.SpringStore.forms.RegisterForm;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -23,10 +24,16 @@ public class Users {
     private String login;
     private String password;
     private int active;
-
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles;
+
+    //  @OneToMany
+    //@JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+//    public Set<Role> roles;
+
 
     public Users() {
     }
@@ -51,6 +58,12 @@ public class Users {
         surname = form.getSurname();
         login = form.getLogin();
         password = form.getPassword();
+        Set<Role> nowa = new HashSet<>();
+        Role rola = new Role();
+        rola.setRole("USER");
+        nowa.add(rola);
+        roles = nowa;
+
     }
 
     public int getId() {
