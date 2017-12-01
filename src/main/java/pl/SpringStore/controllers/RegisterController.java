@@ -13,6 +13,7 @@ import pl.SpringStore.forms.RegisterForm;
 import pl.SpringStore.models.Users;
 //import pl.SpringStore.repositories.UserCRUDRepository;
 import pl.SpringStore.repositories.UsersRepository;
+import pl.SpringStore.services.RegisterService;
 
 import javax.validation.Valid;
 
@@ -24,11 +25,8 @@ import javax.validation.Valid;
 @SessionAttributes({"sessionName","sessionIsLogged"})
 public class RegisterController {
 
-//    @Autowired
-//    UserCRUDRepository userCRUDRepository;
-
     @Autowired
-    UsersRepository usersRepository;
+    private RegisterService registerService;
 
     @GetMapping("/register")
     public String registerGet(Model model) {
@@ -41,31 +39,16 @@ public class RegisterController {
         if (result.hasErrors()) {
             return "register";
         }
-        model.addAttribute("sessionName", registerForm.getName());
-        model.addAttribute("sessionIsLogged", true);
+//        model.addAttribute("sessionName", registerForm.getName());
+//        model.addAttribute("sessionIsLogged", true);
 
-//        if(userCRUDRepository.findByLogin(registerForm.getLogin()).size() > 0) {
-//           model.addAttribute("info","Taki login istnieje");
-//            return "register";
-//        } else {
-//            userCRUDRepository.save(new UserModel(registerForm));
-//            System.out.println("zarejestrowano");
-//            return "redirect:/";
-//        }
-
-        if(usersRepository.findByLogin(registerForm.getLogin()).isPresent()) {
+        if(registerService.findByLogin(registerForm).isPresent()) {
             model.addAttribute("info","Taki login istnieje");
             return "register";
         } else {
-            usersRepository.save(new Users(registerForm));
-            //int newId = usersRepository.findByLogin(registerForm.getLogin()).get().getId();
-
-
+            registerService.register(registerForm);
             System.out.println("zarejestrowano");
             return "redirect:/";
         }
-
-
     }
-
 }

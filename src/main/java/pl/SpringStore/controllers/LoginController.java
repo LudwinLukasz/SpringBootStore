@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * Created by arabk on 26.10.2017.
  */
 @Controller
-@SessionAttributes({"sessionName","sessionIsLogged"})
+//@SessionAttributes({"sessionName","sessionIsLogged"})
 public class LoginController {
 
 //    @Autowired
