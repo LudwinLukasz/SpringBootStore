@@ -2,8 +2,10 @@
 <html lang="en" xmlns:th="http://thymeleaf/org">
 <head>
     <title>Signing in</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet"  type="text/css" th:href="@{/css/sig.css}" />
+    <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sig.css}"/>
 </head>
 <body>
 <section>
@@ -20,20 +22,22 @@
             <form class="form-signin" th:action="@{/login}" method="post">
                 <h2 class="form-signin-heading">Zaloguj się</h2>
                 <label for="inputEmail" class="sr-only">Adres mailowy</label>
-                <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Adres mailowy" required autofocus/>
+                <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Adres mailowy"
+                       required autofocus/>
                 <!--<div>-->
-                    <!--<label> User Name : <input type="text" name="username" />-->
-                    <!--</label>-->
+                <!--<label> User Name : <input type="text" name="username" />-->
+                <!--</label>-->
                 <!--</div>-->
                 <label for="inputPassword" class="sr-only">Hasło</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Hasło" required/>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Hasło"
+                       required/>
                 <!--<div>-->
-                    <!--<label> Password: <input type="password" name="password" />-->
-                    <!--</label>-->
+                <!--<label> Password: <input type="password" name="password" />-->
+                <!--</label>-->
                 <!--</div>-->
                 <!--<div>-->
-                    <input type="submit" value="Wyślij" class="btn btn-info btn-block"/>
-                    <!--<input type="submit" value="Sign In !" />-->
+                <input type="submit" value="Wyślij" class="btn btn-info btn-block"/>
+                <!--<input type="submit" value="Sign In !" />-->
                 <!--</div>-->
             </form>
         </div>
@@ -49,7 +53,10 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </body>
 </html>
