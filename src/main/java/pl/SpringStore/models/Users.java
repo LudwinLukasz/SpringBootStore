@@ -1,5 +1,6 @@
 package pl.SpringStore.models;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import pl.SpringStore.forms.LoginForm;
 import pl.SpringStore.forms.RegisterForm;
 
@@ -50,14 +51,14 @@ public class Users {
 
     public Users(LoginForm form) {
         login = form.getLogin();
-        password = form.getPassword();
+        password = BCrypt.hashpw(form.getPassword(), BCrypt.gensalt());
     }
 
     public Users(RegisterForm form) {
         name = form.getName();
         surname = form.getSurname();
         login = form.getLogin();
-        password = form.getPassword();
+        password = BCrypt.hashpw(form.getPassword(), BCrypt.gensalt());
         Set<Role> nowa = new HashSet<>();
         Role rola = new Role();
         rola.setRole("USER");

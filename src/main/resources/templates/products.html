@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf/org">
-    <title>Produkty</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<meta charset="utf-8">
+<title>Produkty</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 <div th:replace="fragments/menu :: menu"></div>
 <section class="container" style="margin-bottom: 90px;">
-    <div class="row" >
+    <div class="row">
         <div class="col-md-4" style="margin-bottom: 3em; height: 15em;" th:each="product : ${products}">
             <div class="thumbnail" style="margin-bottom: 100px;">
                 <div class="caption">
@@ -14,7 +16,8 @@
                     <p><span th:text="${product.description}"></span></p>
                     <p><span th:text="${product.unitPrice}"></span> PLN</p>
                     <p><span th:text="${product.unitsInStock}"></span> sztuk</p>
-                    <a href="/product" name="productId" th:href="${'/products/product?productId=' + product.productId}" class="btn btn-warning btn-large">Podziwiaj produkt</a>
+                    <a href="/product" name="productId" th:href="${'/products/product?productId=' + product.productId}"
+                       class="btn btn-warning btn-large">Podziwiaj produkt</a>
 
                 </div>
             </div>
@@ -23,7 +26,10 @@
 </section>
 <div th:replace="fragments/pagination :: pagination"></div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </body>
 </html>

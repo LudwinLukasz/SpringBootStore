@@ -29,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(getPasswordEncoder());
     }
+
     private PasswordEncoder getPasswordEncoder() {
         return new PasswordEncoder() {
             @Override
@@ -47,8 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 //                .antMatchers("/", "/login", "/about", "/assets/**").permitAll()
-               // .antMatchers("/products/**").hasRole("ADMIN")
-                    .antMatchers("/products/**").authenticated()
+                // .antMatchers("/products/**").hasRole("ADMIN")
+                .antMatchers("/products/**").authenticated()
                 //.anyRequest().authenticated()
                 .anyRequest().permitAll()
                 .and()
@@ -57,9 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutSuccessUrl("/");
         http.csrf().disable();
-   //     http.headers().frameOptions().disable();
+        //     http.headers().frameOptions().disable();
     }
-
 
 
 }
