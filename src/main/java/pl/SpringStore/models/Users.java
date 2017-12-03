@@ -59,12 +59,6 @@ public class Users {
         surname = form.getSurname();
         login = form.getLogin();
         password = BCrypt.hashpw(form.getPassword(), BCrypt.gensalt());
-        Set<Role> nowa = new HashSet<>();
-        Role rola = new Role();
-        rola.setRole("USER");
-        nowa.add(rola);
-        roles = nowa;
-
     }
 
     public int getId() {
