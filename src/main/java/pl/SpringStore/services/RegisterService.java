@@ -20,20 +20,33 @@ import java.util.Set;
 public class RegisterService {
 
     private static final Logger log = LoggerFactory.getLogger(RegisterService.class);
+    private UsersRepository usersRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    UsersRepository usersRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
+    public RegisterService(UsersRepository usersRepository, RoleRepository roleRepository) {
+        this.usersRepository=usersRepository;
+        this.roleRepository=roleRepository;
+    }
+//    @Autowired
+//    UsersRepository usersRepository;
+//
+//    @Autowired
+//    RoleRepository roleRepository;
 
     public void register(RegisterForm registerForm) {
-        Set<Role> roles = roleRepository.findByRole("USER");
-        Users user = new Users(registerForm);
-        user.setRoles(roles);
+        Users user = setUserRole(registerForm);
         usersRepository.save(user);
         log.info("Registering the new user {}", user.toString());
     }
+
+    public Users setUserRole(RegisterForm registerForm) {
+        Set<Role> roles = roleRepository.findByRole("USER");
+        Users user = new Users(registerForm);
+        user.setRoles(roles);
+        return user;
+    }
+
     public Optional<Users> findByLogin(RegisterForm registerForm) {
         return usersRepository.findByLogin(registerForm.getLogin());
     }
