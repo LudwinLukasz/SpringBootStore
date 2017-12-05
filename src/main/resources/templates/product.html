@@ -23,7 +23,16 @@
                 <p><span th:text="${product.unitPrice}"></span> PLN</p>
                 <p><span th:text="${product.unitsInStock}"></span> sztuk</p>
                 <a href="/products/" class="btn btn-primary btn-large">Powrót</a>
-                <button class="btn btn-warning btn-large">Dodaj do koszyka xD</button>
+                <form method="POST" th:action="@{/shoppingCart/addProduct}">
+                    <input type="hidden" name="productId" id="productId" th:value="${product.productId}" />
+                    <button class="btn btn-warning btn-large" type="submit" name="submit" value="value">dodaj</button>
+                </form>
+
+                <!--@{/edit(personId=${person.personId})}-->
+                <!--<a href="/product" name="productId" th:href="${'/shoppingCart/addProduct/product?productId=' + product.productId}"-->
+                   <!--class="btn btn-warning btn-large">Dodaj do koszyka</a>-->
+
+                <!--<button class="link-button" class="btn btn-warning btn-large">Dodaj do koszyka xD</button>-->
             </div>
         </div>
     </div>
