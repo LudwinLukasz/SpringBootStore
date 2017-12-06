@@ -21,9 +21,9 @@
 
             <table border="1">
                 <tr>
-                    <td>Id</td>
-                    <td>Imie</td>
-                    <td>Ilość zamówiona</td>
+                    <td>Nazwa produktu</td>
+                    <td>Cena produktu</td>
+                    <td>Ilość w koszyku</td>
                 </tr>
                 <!--<tr th:foreach="${list}"></tr>-->
                 <!--<td th:text="${productId}">Id</td>-->
@@ -33,17 +33,31 @@
                 <!--+                    <td>-->
                 <!--&lt;!&ndash;th:href="@{/prod/prod(prodId=${product.productId})}">view</a>&ndash;&gt;-->
                 <!--th:href="@{/product/comments(prodId=${prod.id})}"-->
-                </tr>
-                <tr th:each="productId: ${list}">
-                    <td th:text="${productId}">Id</td>
-                    <td th:text="${name}">Imie</td>
-                    <td><a href="/order/{productId}"
-                           + th:href="@{/order/__${productId}__}">Usuń z koszyka</a></td>
-                </tr>
+                <!--</tr>-->
+
+                <!--<tr th:each="productId: ${list}">-->
+                    <!--<td th:text="${productId}">Id</td>-->
+                    <!--<td th:text="${name}">Imie</td>-->
+                    <!--<td><a href="/order/{productId}"-->
+                           <!--+ th:href="@{/order/__${productId}__}">Usuń z koszyka</a></td>-->
+                <!--</tr>-->
+                <tr th:each="product : ${products.entrySet()}">
+                    <td th:text="${product.getKey().name}">nazwa</td>
+                    <td th:text="${product.getKey().unitPrice}">cena</td>
+                    <td th:text="${product.getValue()}">ilosc</td>
+                    <td><form method="POST" th:action="@{/shoppingCart/addProduct}">
+                        <input type="hidden" name="productId" id="addProductId" th:value="${product.getKey().productId}" />
+                        <button class="btn btn-info btn-large" type="submit" name="submit" value="value">dodaj kolejny</button>
+                    </form></td>
+                    <td><form method="POST" th:action="@{/shoppingCart/removeProduct}">
+                        <input type="hidden" name="productId" id="removeProductId" th:value="${product.getKey().productId}" />
+                        <button class="btn btn-warning btn-large" type="submit" name="submit" value="value">usuń</button>
+                    </form></td>
                 </tr>
             </table>
             <p th:text="${test}"></p>
-            <a href="order/cart.html" th:href="@{/order/cart}">Złóż zamówienie</a>
+            <a href="products/.html" th:href="@{/products/}">Lista produktów</a>
+            <a href="order/checkout.html" th:href="@{/order/checkout}">Złóż zamówienie</a>
         </div>
     </div>
 </section>

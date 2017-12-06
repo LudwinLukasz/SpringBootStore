@@ -30,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     public void addProduct(ProductModel product) {
         if (products.containsKey(product)) {
+
             products.replace(product, products.get(product) + 1);
         } else {
             products.put(product, 1);
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
         for (Map.Entry<ProductModel, Integer> entry : products.entrySet()) {
             // Refresh quantity for every product before checking
             product = productRepository.findOne(entry.getKey().getProductId());
-            if (product.getUnitsInStock() < entry.getValue())
+          //  if (product.getUnitsInStock() < entry.getValue())
                 entry.getKey().setUnitsInStock(product.getUnitsInStock() - entry.getValue());
         }
         productRepository.save(products.keySet());

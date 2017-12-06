@@ -22,9 +22,9 @@ public class OrderController {
     @Autowired
     ProductService productService;
 
-    List<String> orderList = new ArrayList<>();
+//    List<String> orderList = new ArrayList<>();
 
-    Map<String, String> sessionHash = new HashMap<>();
+  //  Map<String, String> sessionHash = new HashMap<>();
 
     @GetMapping("/order")
     public ModelAndView shoppingCart() {
@@ -42,16 +42,17 @@ public class OrderController {
         return shoppingCart();
     }
 
-    @GetMapping("/order/removeProduct/{productId}")
-    public ModelAndView removeProductFromCart(@PathVariable("productId") Integer productId) {
+    @PostMapping("/shoppingCart/removeProduct")
+//    @GetMapping("/order/removeProduct/{productId}")
+    public ModelAndView removeProductFromCart(@RequestParam(value = "productId") Integer productId) {
         orderService.removeProduct(productService.findByProductId(productId));
         return shoppingCart();
     }
 //
-//    @GetMapping("/order/checkout")
-//    public ModelAndView checkout(){
-//        orderService.checkout();
-//        return shoppingCart();
-//    }
+    @GetMapping("/order/checkout")
+    public ModelAndView checkout(){
+        orderService.checkout();
+        return shoppingCart();
+    }
 //
 }
