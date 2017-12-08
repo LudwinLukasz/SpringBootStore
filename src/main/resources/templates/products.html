@@ -18,7 +18,10 @@
                     <p><span th:text="${product.unitsInStock}"></span> sztuk</p>
                     <a href="/product" name="productId" th:href="${'/products/product?productId=' + product.productId}"
                        class="btn btn-warning btn-large">Podziwiaj produkt</a>
-
+                    <form method="POST" th:action="@{/shoppingCart/addProduct}">
+                        <input type="hidden" name="productId" id="productId" th:value="${product.productId}" />
+                        <button class="btn btn-warning btn-large" type="submit" name="submit" value="value">dodaj</button>
+                    </form>
                 </div>
             </div>
         </div>

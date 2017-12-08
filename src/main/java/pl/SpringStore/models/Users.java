@@ -35,6 +35,8 @@ public class Users {
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
 //    public Set<Role> roles;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    private Set<OrderModel> orders;
 
     public Users() {
     }

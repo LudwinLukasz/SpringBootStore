@@ -10,9 +10,6 @@ import pl.SpringStore.models.OrderModel;
 @Repository
 public interface OrderCRUDRepository extends CrudRepository<OrderModel,Integer> {
 
-
-
-    OrderModel findById(int orderId);
-
+    //OrderModel findById(int orderId);
 
 }

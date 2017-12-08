@@ -1,7 +1,10 @@
 package pl.SpringStore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name="product")
@@ -19,6 +22,10 @@ public class ProductModel {
     private long unitsInStock;
     private long unitsInOrder;
     private boolean discounted;
+
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private List<OrderModel> orders;
 
     public ProductModel() {
     }
@@ -99,6 +106,14 @@ public class ProductModel {
 
     public void setDiscounted(boolean discounted) {
         this.discounted = discounted;
+    }
+
+    public List<OrderModel> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderModel> orders) {
+        this.orders = orders;
     }
 
     @Override

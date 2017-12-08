@@ -1,54 +1,78 @@
 package pl.SpringStore.models;
 
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-/**
- * Created by monik on 02.11.2017.
- */
 @Entity
-@Component
-@Table(name="order")
+@Table(name="ordermodel")
 public class OrderModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name="order_id")
+    private int id;
 
-    private int idUser;
-    private String name;
+//    @Column(name="user_id")
+//    private int userId;
+
+    @ManyToMany
+    @JoinTable(
+            name = "ordermodel_product",
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "productId")}
+    )
+    private Set<ProductModel> products = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private Users users;
 
     public OrderModel() {
     }
 
-    public OrderModel(Long id, int idUser, String name) {
+    public OrderModel(int id, Set<ProductModel> products,Users users) {
         this.id = id;
-        this.idUser = idUser;
-        this.name = name;
+        //this.userId = userId;
+        this.products = products;
+        this.users=users;
     }
 
-    public Long getId() {
+    public Set<ProductModel> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductModel> products) {
+        this.products = products;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+//
+//    public int getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

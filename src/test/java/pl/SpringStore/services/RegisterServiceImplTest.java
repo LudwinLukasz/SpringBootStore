@@ -9,6 +9,7 @@ import pl.SpringStore.models.Role;
 import pl.SpringStore.models.Users;
 import pl.SpringStore.repositories.RoleRepository;
 import pl.SpringStore.repositories.UsersRepository;
+import pl.SpringStore.services.impl.RegisterServiceImpl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ import static org.mockito.BDDMockito.given;
 /**
  * Created by arabk on 02.12.2017.
  */
-public class RegisterServiceTest {
+public class RegisterServiceImplTest {
 
     private RegisterService registerService;
 
@@ -29,7 +30,7 @@ public class RegisterServiceTest {
 
     @Before
     public void setup() {
-        registerService = new RegisterService(mockUsersRepository, mockRoleRepository);
+        registerService = new RegisterServiceImpl(mockUsersRepository, mockRoleRepository);
     }
 
     @Test
