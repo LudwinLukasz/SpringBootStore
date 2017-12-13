@@ -22,7 +22,7 @@ import javax.validation.Valid;
  */
 
 @Controller
-@SessionAttributes({"sessionName","sessionIsLogged"})
+//@SessionAttributes({"sessionName","sessionIsLogged"})
 public class RegisterController {
 
     @Autowired

@@ -1,78 +1,78 @@
 package pl.SpringStore.controllers;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import pl.SpringStore.models.OrderModel;
-import pl.SpringStore.repositories.CartRepository;
+import pl.SpringStore.models.OrderModelProduct;
+import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Users;
 import pl.SpringStore.repositories.OrderCRUDRepository;
+import pl.SpringStore.repositories.OrderProductCRUDRepository;
+import pl.SpringStore.repositories.UsersRepository;
+import pl.SpringStore.services.EmailSender;
+import pl.SpringStore.services.OrderModelProductService;
+import pl.SpringStore.services.OrderService;
+import pl.SpringStore.services.ProductService;
 
+import java.math.BigDecimal;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-/**
- * Created by monik on 31.10.2017.
- */
 @Controller
-@SessionAttributes({"sessionName","sessionIsLogged"})
+//@SessionAttributes({"sessionName","sessionIsLogged"})
 public class OrderController {
 
     @Autowired
-    CartRepository fakeOrder;
+    OrderService orderService;
+
+    @Autowired
+    ProductService productService;
+
     @Autowired
     OrderCRUDRepository orderCRUDRepository;
+
     @Autowired
-    OrderModel orderModel;
+    UsersRepository usersRepository;
 
-    List<String> orderList = new ArrayList<>();
+    @Autowired
+    OrderProductCRUDRepository orderProductCRUDRepository;
 
-    Map<String, String> sessionHash = new HashMap<>();
+    @Autowired
+    OrderModelProductService orderModelProductService;
 
     @GetMapping("/order")
-    // @ResponseBody
-    public String order(HttpServletRequest request, ModelMap modelMap) {
-        HttpSession session = request.getSession();
-
-        modelMap.addAttribute( "imie", fakeOrder.userOrder );//session.getAttribute( "sessionName" ) );
-        modelMap.addAttribute( "list", fakeOrder.orderProd );
-        System.out.println( fakeOrder.orderProd );
-
-        return "order";
+    public ModelAndView shoppingCart() {
+        ModelAndView modelAndView = new ModelAndView("order");
+        modelAndView.addObject("products", orderService.getProductsInCart());
+        modelAndView.addObject("total", orderService.getTotal().toString());
+        modelAndView.addObject("test", orderService.getProductsInCart().entrySet().size());
+        return modelAndView;
     }
 
-    @GetMapping("/order/{id}")
-    public String remove(@PathVariable String id, ModelMap modelMap) {
-        orderList.remove( id );
-        orderList.remove( sessionHash.get( "sessionName" ) );
-        fakeOrder.orderProd.remove( id );
-        fakeOrder.userOrder = sessionHash.get( "sessionName" );
-        System.out.println( fakeOrder.orderProd );
-
-
-        return "order";
+    @PostMapping("/shoppingCart/addProduct")
+    //@GetMapping("/shoppingCart/addProduct/{productId}")
+    public ModelAndView addProductToCart(@RequestParam(value = "productId") Integer productId) {
+        orderService.addProduct(productService.findByProductId(productId));
+        return shoppingCart();
     }
 
-
-    @GetMapping("/order/cart")
-    public String order(ModelMap modelMap) {
-        
-        for (String t : fakeOrder.orderProd) {
-            orderCRUDRepository.save( orderModel );
-            System.out.println( orderModel);
-        }
-        modelMap.addAttribute( "order", orderModel );
-        return "order/cart";
-
-
+    @PostMapping("/shoppingCart/removeProduct")
+//    @GetMapping("/order/removeProduct/{productId}")
+    public ModelAndView removeProductFromCart(@RequestParam(value = "productId") Integer productId) {
+        orderService.removeProduct(productService.findByProductId(productId));
+        return shoppingCart();
     }
-
-
+//
+    @GetMapping("/order/checkout")
+    public ModelAndView checkout(){
+        orderModelProductService.saveOrder();
+        orderService.cleanUp();
+        return shoppingCart();
+    }
+//
 }

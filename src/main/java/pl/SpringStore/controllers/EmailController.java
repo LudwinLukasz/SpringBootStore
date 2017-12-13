@@ -16,9 +16,6 @@ import pl.SpringStore.services.EmailSender;
 @Controller
 public class EmailController {
 
-//    @Autowired
-//    UserCRUDRepository userCRUDRepository;
-
     @Autowired
     UsersRepository usersRepository;
 
@@ -38,7 +35,6 @@ public class EmailController {
     @RequestMapping("/email")
     public String send(@RequestParam("email") String email, Model model) {
         model.addAttribute("info","twoje hasło zostało wysłane");
-//        String content = "Twoje hasło to: "+ userCRUDRepository.findByLogin(email).get(0).getPassword();
         String content = "Twoje hasło to: "+ usersRepository.findByLogin(email).get().getPassword();
          emailSender.sendEmail(email, "Przypomnienie hasła", content);
          return "forgotpassword";

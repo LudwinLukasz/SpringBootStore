@@ -1,7 +1,10 @@
 package pl.SpringStore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name="product")
@@ -19,6 +22,10 @@ public class ProductModel {
     private long unitsInStock;
     private long unitsInOrder;
     private boolean discounted;
+
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private List<OrderModel> orders;
 
     public ProductModel() {
     }
@@ -101,8 +108,48 @@ public class ProductModel {
         this.discounted = discounted;
     }
 
+    public List<OrderModel> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderModel> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Produkt [productId= " + productId + ", nazwa= " + name + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProductModel that = (ProductModel) o;
+
+        if (unitsInStock != that.unitsInStock) return false;
+        if (unitsInOrder != that.unitsInOrder) return false;
+        if (discounted != that.discounted) return false;
+        if (!productId.equals(that.productId)) return false;
+        if (!name.equals(that.name)) return false;
+        if (!unitPrice.equals(that.unitPrice)) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (!manufacturer.equals(that.manufacturer)) return false;
+        return category.equals(that.category);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = productId.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + unitPrice.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + manufacturer.hashCode();
+        result = 31 * result + category.hashCode();
+        result = 31 * result + (int) (unitsInStock ^ (unitsInStock >>> 32));
+        result = 31 * result + (int) (unitsInOrder ^ (unitsInOrder >>> 32));
+        result = 31 * result + (discounted ? 1 : 0);
+        return result;
     }
 }
