@@ -12,16 +12,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.security.Principal;
 
 @Controller
-@SessionAttributes({"sessionName","sessionIsLogged"})
 public class WelcomeController {
     @RequestMapping("/")
     public String welcome(Model model) {
         model.addAttribute("greeting", "Witaj w naszym sklepie!");
         model.addAttribute("tagline","Drugiego takiego nie znajdziesz!");
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getCredentials());
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails());
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -33,8 +28,6 @@ public class WelcomeController {
             System.out.println("principal" + principal.getUsername());
             model.addAttribute("imie",principal.getUsername());
         }
-
-
         return "welcome";
     }
 }

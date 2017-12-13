@@ -19,6 +19,8 @@ public interface OrderService {
 
     void checkout();
 
+    void cleanUp();
+
     BigDecimal getTotal();
 }
 

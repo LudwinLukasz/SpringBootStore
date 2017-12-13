@@ -66,6 +66,10 @@ public class OrderServiceImpl implements OrderService {
         products.clear();
     }
 
+    public void cleanUp(){
+        products.clear();
+    }
+
     public BigDecimal getTotal() {
         BigDecimal total = BigDecimal.ZERO;
         for (Map.Entry<ProductModel, Integer> entry : products.entrySet()) {

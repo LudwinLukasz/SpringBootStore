@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes({"sessionName", "sessionIsLogged"})
+//@SessionAttributes({"sessionName", "sessionIsLogged"})
 @RequestMapping("/products")
 public class ProductController {
 

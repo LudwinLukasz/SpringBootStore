@@ -36,7 +36,7 @@ public class OrderModel {
     public OrderModel() {
     }
 
-    public OrderModel(int id, Set<ProductModel> products,Users users) {
+    public OrderModel( int id, Set<ProductModel> products,Users users) {
         this.id = id;
         //this.userId = userId;
         this.products = products;
@@ -75,4 +75,23 @@ public class OrderModel {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderModel that = (OrderModel) o;
+
+        if (id != that.id) return false;
+        if (products != null ? !products.equals(that.products) : that.products != null) return false;
+        return users != null ? users.equals(that.users) : that.users == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (products != null ? products.hashCode() : 0);
+        result = 31 * result + (users != null ? users.hashCode() : 0);
+        return result;
+    }
 }

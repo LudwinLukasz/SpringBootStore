@@ -15,6 +15,8 @@ import pl.SpringStore.models.Users;
 import pl.SpringStore.repositories.OrderCRUDRepository;
 import pl.SpringStore.repositories.OrderProductCRUDRepository;
 import pl.SpringStore.repositories.UsersRepository;
+import pl.SpringStore.services.EmailSender;
+import pl.SpringStore.services.OrderModelProductService;
 import pl.SpringStore.services.OrderService;
 import pl.SpringStore.services.ProductService;
 
@@ -22,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Controller
-@SessionAttributes({"sessionName","sessionIsLogged"})
+//@SessionAttributes({"sessionName","sessionIsLogged"})
 public class OrderController {
 
     @Autowired
@@ -40,9 +42,8 @@ public class OrderController {
     @Autowired
     OrderProductCRUDRepository orderProductCRUDRepository;
 
-//    List<String> orderList = new ArrayList<>();
-
-  //  Map<String, String> sessionHash = new HashMap<>();
+    @Autowired
+    OrderModelProductService orderModelProductService;
 
     @GetMapping("/order")
     public ModelAndView shoppingCart() {
@@ -69,29 +70,8 @@ public class OrderController {
 //
     @GetMapping("/order/checkout")
     public ModelAndView checkout(){
-        System.out.println(orderCRUDRepository.findOne(1));
-        //Set<ProductModel> pm = new HashSet<>();
-        Map<ProductModel, Integer> productsInCart = orderService.getProductsInCart();
-        Set<ProductModel> pm = productsInCart.keySet();
-
-//        pm.add(productService.findByProductId(1234));
-//        pm.add(productService.findByProductId(1235));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-       // if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-      //  }
-       // Users us = usersRepository.findByLogin("px@om.pl").get();
-        Users us = usersRepository.findByLogin(currentUserName).get();
-
-        orderCRUDRepository.save(new OrderModel(4, pm,us));
-        Iterable<OrderModelProduct> all = orderProductCRUDRepository.findAll();
-
-        all.forEach(s-> System.out.println(s.getId() + " " + s.getQuantity()));
-        OrderModelProduct omp = new OrderModelProduct(1,2,2,2);
-        //orderProductCRUDRepository
-        orderProductCRUDRepository.save(omp);
-        orderService.checkout();
-        //System.out.println(byId);
+        orderModelProductService.saveOrder();
+        orderService.cleanUp();
         return shoppingCart();
     }
 //
