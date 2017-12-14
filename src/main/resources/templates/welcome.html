@@ -26,6 +26,9 @@
             <p> albo </p>
             <a href="/register"><p>zarejestruj!</p></a>
         </div>
+        <div sec:authorize="isAuthenticated()">
+            <a href="/products/"><p>Dostępne produkty</p></a>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"

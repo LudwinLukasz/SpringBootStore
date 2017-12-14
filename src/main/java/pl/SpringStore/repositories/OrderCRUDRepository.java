@@ -12,8 +12,7 @@ import java.util.List;
  */
 @Repository
 public interface OrderCRUDRepository extends CrudRepository<OrderModel,Integer> {
-    List<OrderModel> findByUsers(Users users);
 
-    //OrderModel findById(int orderId);
+    List<OrderModel> findByUsers(Users users);
 
 }

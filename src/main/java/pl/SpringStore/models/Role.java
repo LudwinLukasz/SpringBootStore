@@ -21,7 +21,6 @@ public class Role {
 
     @ManyToMany(mappedBy="roles",fetch = FetchType.LAZY)
     private Set<Users> users;
-//    @JoinColumn(name = "user_id")
 
     public Role() {
     }

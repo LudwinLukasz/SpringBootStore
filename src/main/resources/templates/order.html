@@ -25,22 +25,6 @@
                     <td>Cena produktu</td>
                     <td>Ilość w koszyku</td>
                 </tr>
-                <!--<tr th:foreach="${list}"></tr>-->
-                <!--<td th:text="${productId}">Id</td>-->
-                <!--<tr th:text="product: ${list}">-->
-                <!--+                    <td th:text="${product.sessionName}">Name</td>-->
-                <!--+                    <td th:text="${product.productId}">Id</td>-->
-                <!--+                    <td>-->
-                <!--&lt;!&ndash;th:href="@{/prod/prod(prodId=${product.productId})}">view</a>&ndash;&gt;-->
-                <!--th:href="@{/product/comments(prodId=${prod.id})}"-->
-                <!--</tr>-->
-
-                <!--<tr th:each="productId: ${list}">-->
-                    <!--<td th:text="${productId}">Id</td>-->
-                    <!--<td th:text="${name}">Imie</td>-->
-                    <!--<td><a href="/order/{productId}"-->
-                           <!--+ th:href="@{/order/__${productId}__}">Usuń z koszyka</a></td>-->
-                <!--</tr>-->
                 <tr th:each="product : ${products.entrySet()}">
                     <td th:text="${product.getKey().name}">nazwa</td>
                     <td th:text="${product.getKey().unitPrice}">cena</td>

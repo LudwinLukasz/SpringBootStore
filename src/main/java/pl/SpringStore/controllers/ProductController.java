@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
-//@SessionAttributes({"sessionName", "sessionIsLogged"})
 @RequestMapping("/products")
 public class ProductController {
 
@@ -37,11 +36,6 @@ public class ProductController {
     public ProductController(ProductServiceImpl productServiceImpl) {
         this.productServiceImpl = productServiceImpl;
     }
-
-    //@Autowired
-    //CartRepository cart;
-
-    //List<String> listcontrol= new ArrayList<>(  );
 
     @GetMapping("/")
     public ModelAndView showProductPage(@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -68,25 +62,10 @@ public class ProductController {
         return modelAndView;
     }
 
-//    @RequestMapping("")
-//    public String list(Model model) {
-//        model.addAttribute("products", productServiceImpl.findAll());
-//        return "products";
-//    }
-
     @GetMapping("/product")
     public String getProductById(@RequestParam(value = "productId") String productId, Model model) {
         model.addAttribute("product", productServiceImpl.findByProductId(Integer.parseInt(productId)));
         return "product";
     }
 
-//   @GetMapping("/")
-//   String search(@RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
-//       if (q != null) {
-//           modelMap.addAttribute("products", productServiceImpl.findByName(q));
-//       } else {
-//           modelMap.addAttribute("products", productServiceImpl.findAll());
-//       }
-//       return "products";
-//   }
 }

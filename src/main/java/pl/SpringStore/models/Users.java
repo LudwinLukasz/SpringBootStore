@@ -25,15 +25,10 @@ public class Users {
     private String login;
     private String password;
     private int active;
-    //@OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles;
-
-    //  @OneToMany
-    //@JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
-//    public Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<OrderModel> orders;

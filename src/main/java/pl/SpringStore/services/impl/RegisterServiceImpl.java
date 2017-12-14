@@ -32,11 +32,6 @@ public class RegisterServiceImpl implements RegisterService {
         this.usersRepository=usersRepository;
         this.roleRepository=roleRepository;
     }
-//    @Autowired
-//    UsersRepository usersRepository;
-//
-//    @Autowired
-//    RoleRepository roleRepository;
 
     public void register(RegisterForm registerForm) {
         Users user = setUserRole(registerForm);

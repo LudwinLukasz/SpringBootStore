@@ -15,7 +15,6 @@ import java.util.List;
 @Repository
 public interface OrderProductCRUDRepository extends JpaRepository<OrderModelProduct, Integer> {
 
-
     List<OrderModelProduct> findByOrderId(Integer currentOrder);
 
     @Modifying

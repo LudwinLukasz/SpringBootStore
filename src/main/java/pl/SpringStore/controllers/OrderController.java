@@ -67,12 +67,12 @@ public class OrderController {
         orderService.removeProduct(productService.findByProductId(productId));
         return shoppingCart();
     }
-//
+
     @GetMapping("/order/checkout")
     public ModelAndView checkout(){
         orderModelProductService.saveOrder();
         orderService.cleanUp();
         return shoppingCart();
     }
-//
+
 }

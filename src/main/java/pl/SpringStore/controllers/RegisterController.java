@@ -22,7 +22,6 @@ import javax.validation.Valid;
  */
 
 @Controller
-//@SessionAttributes({"sessionName","sessionIsLogged"})
 public class RegisterController {
 
     @Autowired
@@ -39,8 +38,6 @@ public class RegisterController {
         if (result.hasErrors()) {
             return "register";
         }
-//        model.addAttribute("sessionName", registerForm.getName());
-//        model.addAttribute("sessionIsLogged", true);
 
         if(registerService.findByLogin(registerForm).isPresent()) {
             model.addAttribute("info","Taki login istnieje");

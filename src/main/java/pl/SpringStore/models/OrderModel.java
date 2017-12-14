@@ -17,9 +17,6 @@ public class OrderModel {
     @Column(name="order_id")
     private int id;
 
-//    @Column(name="user_id")
-//    private int userId;
-
     @ManyToMany
     @JoinTable(
             name = "ordermodel_product",
@@ -38,7 +35,6 @@ public class OrderModel {
 
     public OrderModel( int id, Set<ProductModel> products,Users users) {
         this.id = id;
-        //this.userId = userId;
         this.products = products;
         this.users=users;
     }
@@ -58,14 +54,6 @@ public class OrderModel {
     public void setUsers(Users users) {
         this.users = users;
     }
-//
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
 
     public int getId() {
         return id;
