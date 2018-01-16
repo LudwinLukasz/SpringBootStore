@@ -7,9 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.security.Principal;
 
 @Controller
 public class WelcomeController {
@@ -22,11 +19,12 @@ public class WelcomeController {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             UserDetails principal = (UserDetails) authentication.getPrincipal();
             String currentUserName = authentication.getName();
+            // todo: change to log
             System.out.println("to jest" + currentUserName);
             System.out.println("principal" + principal.getAuthorities());
             System.out.println("principal" + principal.getPassword());
             System.out.println("principal" + principal.getUsername());
-            model.addAttribute("imie",principal.getUsername());
+            model.addAttribute("login",principal.getUsername());
         }
         return "welcome";
     }

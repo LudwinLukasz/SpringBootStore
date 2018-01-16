@@ -22,23 +22,17 @@
             <form class="form-signin" th:action="@{/login}" method="post">
                 <h2 class="form-signin-heading">Zaloguj się</h2>
                 <label for="inputEmail" class="sr-only">Adres mailowy</label>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">
+                        Invalid username and password.
+                    </div>
+                </div>
                 <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Adres mailowy"
                        required autofocus/>
-                <!--<div>-->
-                <!--<label> User Name : <input type="text" name="username" />-->
-                <!--</label>-->
-                <!--</div>-->
                 <label for="inputPassword" class="sr-only">Hasło</label>
                 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Hasło"
                        required/>
-                <!--<div>-->
-                <!--<label> Password: <input type="password" name="password" />-->
-                <!--</label>-->
-                <!--</div>-->
-                <!--<div>-->
                 <input type="submit" value="Wyślij" class="btn btn-info btn-block"/>
-                <!--<input type="submit" value="Sign In !" />-->
-                <!--</div>-->
             </form>
         </div>
     </div>

@@ -7,14 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-//import pl.SpringStore.models.UserModel;
 import pl.SpringStore.forms.RegisterForm;
-import pl.SpringStore.models.Users;
-//import pl.SpringStore.repositories.UserCRUDRepository;
-import pl.SpringStore.repositories.UsersRepository;
 import pl.SpringStore.services.RegisterService;
-
 import javax.validation.Valid;
 
 /**
@@ -22,7 +16,6 @@ import javax.validation.Valid;
  */
 
 @Controller
-//@SessionAttributes({"sessionName","sessionIsLogged"})
 public class RegisterController {
 
     @Autowired
@@ -39,14 +32,12 @@ public class RegisterController {
         if (result.hasErrors()) {
             return "register";
         }
-//        model.addAttribute("sessionName", registerForm.getName());
-//        model.addAttribute("sessionIsLogged", true);
-
         if(registerService.findByLogin(registerForm).isPresent()) {
             model.addAttribute("info","Taki login istnieje");
             return "register";
         } else {
             registerService.register(registerForm);
+            // todo: change to log
             System.out.println("zarejestrowano");
             return "redirect:/";
         }

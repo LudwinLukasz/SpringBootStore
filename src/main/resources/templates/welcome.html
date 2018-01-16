@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://thymeleaf/org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
 <meta charset="utf-8">
 <title>Welcome!</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
@@ -13,14 +14,11 @@
         <h1><span th:text="${greeting}"></span></h1>
         <br/>
         <p><span th:text="${tagline}"></span></p>
-        <!--<div th:if="${sessionIsLogged} == true">-->
         <div sec:authorize="isAuthenticated()">
-            <!--<p>Cześć <span th:text="${sessionName}"></span></p>-->
-            <p>Cześć <span th:text="${imie}"></span></p>
+            <p>Cześć <span th:text="${login}"></span></p>
             <p>Jesteś zalogowany</p>
             <a href="/signout"><p>Wyloguj się!</p></a>
         </div>
-        <!--<div th:if="${sessionIsLogged} != true">-->
         <div sec:authorize="isAnonymous()">
             <a href="/login"><p>Zaloguj się!</p></a>
             <p> albo </p>
