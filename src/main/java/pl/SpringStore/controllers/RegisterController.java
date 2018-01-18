@@ -42,6 +42,7 @@ public class RegisterController {
             logger.warn("Somebody tried to create new account for existing login: " + registerForm.getLogin());
             return "register";
         } else {
+            logger.info("Starting registering new user: "+registerForm.getLogin());
             registerService.register(registerForm);
             logger.info("New user registered: " + registerForm.getLogin());
             return "redirect:/";

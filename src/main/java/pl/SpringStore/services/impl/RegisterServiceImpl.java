@@ -13,7 +13,6 @@ import pl.SpringStore.models.Users;
 import pl.SpringStore.repositories.RoleRepository;
 import pl.SpringStore.repositories.UsersRepository;
 import pl.SpringStore.services.RegisterService;
-
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,23 +31,18 @@ public class RegisterServiceImpl implements RegisterService {
         this.usersRepository=usersRepository;
         this.roleRepository=roleRepository;
     }
-//    @Autowired
-//    UsersRepository usersRepository;
-//
-//    @Autowired
-//    RoleRepository roleRepository;
 
     public void register(RegisterForm registerForm) {
-        Users user = setUserRole(registerForm);
+        Users user = new Users(registerForm);
+        setUserRole(user);
         usersRepository.save(user);
-        log.info("Registering the new user {}", user.toString());
+        log.info("Service is registering the new user {}", user.getLogin());
     }
 
-    public Users setUserRole(RegisterForm registerForm) {
+   public void setUserRole(Users user) {
         Set<Role> roles = roleRepository.findByRole("USER");
-        Users user = new Users(registerForm);
         user.setRoles(roles);
-        return user;
+        log.info("Service is assigning role to user: {}",user.getRoles().stream().findAny().get().getRole());
     }
 
     public Optional<Users> findByLogin(RegisterForm registerForm) {
