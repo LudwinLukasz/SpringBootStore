@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.SpringStore.repositories.UsersRepository;
 import pl.SpringStore.services.CustomUserDetailsService;
@@ -31,34 +32,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        };
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/", "/login", "/about", "/assets/**").permitAll()
-                // .antMatchers("/products/**").hasRole("ADMIN")
                 .antMatchers("/products/**").authenticated()
-                //.anyRequest().authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/products/")
                 .and()
                 .logout().logoutSuccessUrl("/");
         http.csrf().disable();
     }
-
-
 }

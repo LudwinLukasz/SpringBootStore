@@ -1,16 +1,11 @@
 package pl.SpringStore.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.SpringStore.forms.LoginForm;
-//import pl.SpringStore.repositories.UserCRUDRepository;
-
-import javax.validation.Valid;
 
 /**
  * Created by arabk on 26.10.2017.
@@ -18,15 +13,11 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 
-    @GetMapping("/signin")
-    public String singnInGet(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
-        return "signin";
-    }
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @GetMapping("/login")
     public String loginGet(Model model) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+        logger.info("Somebody entered login page " + SecurityContextHolder.getContext().getAuthentication());
         return "login";
     }
 }
