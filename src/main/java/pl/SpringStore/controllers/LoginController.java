@@ -17,8 +17,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginGet(Model model) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
-        logger.info("Somebody entered login page" + SecurityContextHolder.getContext().getAuthentication());
+        logger.info("Somebody entered login page " + SecurityContextHolder.getContext().getAuthentication());
         return "login";
     }
 }

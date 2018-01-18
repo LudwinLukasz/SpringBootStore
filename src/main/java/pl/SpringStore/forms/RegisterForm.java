@@ -1,7 +1,6 @@
 package pl.SpringStore.forms;
 
 import org.hibernate.validator.constraints.NotBlank;
-
 import javax.validation.constraints.Pattern;
 
 /**
@@ -22,7 +21,7 @@ public class RegisterForm {
     private String login;
 
     @NotBlank
-    //  @Pattern(regexp = "[1-9][0-9]*")
+    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,15})")
     private String password;
 
     public RegisterForm() {}

@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-//import pl.SpringStore.repositories.UserCRUDRepository;
 import pl.SpringStore.repositories.UsersRepository;
 import pl.SpringStore.services.EmailSender;
 
@@ -18,7 +17,6 @@ public class EmailController {
 
     @Autowired
     UsersRepository usersRepository;
-
 
     private final EmailSender emailSender;
 
@@ -34,10 +32,10 @@ public class EmailController {
 
     @RequestMapping("/email")
     public String send(@RequestParam("email") String email, Model model) {
+        // todo: when password hashing introduced this implementation need to be changed to password reseting
         model.addAttribute("info","twoje hasło zostało wysłane");
         String content = "Twoje hasło to: "+ usersRepository.findByLogin(email).get().getPassword();
          emailSender.sendEmail(email, "Przypomnienie hasła", content);
          return "forgotpassword";
     }
-
 }

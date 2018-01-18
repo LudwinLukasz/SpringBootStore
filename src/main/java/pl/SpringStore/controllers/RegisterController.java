@@ -1,5 +1,7 @@
 package pl.SpringStore.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import javax.validation.Valid;
 @Controller
 public class RegisterController {
 
+    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
+
     @Autowired
     private RegisterService registerService;
 
@@ -30,15 +34,16 @@ public class RegisterController {
     @PostMapping("/register")
     public String registerPost(@ModelAttribute("registerForm") @Valid RegisterForm registerForm, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            logger.warn("Somebody failed to register");
             return "register";
         }
         if(registerService.findByLogin(registerForm).isPresent()) {
             model.addAttribute("info","Taki login istnieje");
+            logger.warn("Somebody tried to create new account for existing login: " + registerForm.getLogin());
             return "register";
         } else {
             registerService.register(registerForm);
-            // todo: change to log
-            System.out.println("zarejestrowano");
+            logger.info("New user registered: " + registerForm.getLogin());
             return "redirect:/";
         }
     }
