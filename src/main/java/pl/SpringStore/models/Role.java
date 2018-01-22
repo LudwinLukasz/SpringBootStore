@@ -22,9 +22,9 @@ public class Role {
 
     public Role() {
     }
-    public Role(int role, String roles) {
-        this.roleId = role;
-        this.role=roles;
+    public Role(int roleId, String role) {
+        this.roleId = roleId;
+        this.role=role;
     }
 
     public int getRoleId() {

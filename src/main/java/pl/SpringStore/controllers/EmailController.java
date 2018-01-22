@@ -1,5 +1,7 @@
 package pl.SpringStore.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import pl.SpringStore.services.EmailSender;
  */
 @Controller
 public class EmailController {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
 
     @Autowired
     UsersRepository usersRepository;
@@ -34,6 +38,7 @@ public class EmailController {
     public String send(@RequestParam("email") String email, Model model) {
         // todo: when password hashing introduced this implementation need to be changed to password reseting
         model.addAttribute("info","twoje hasło zostało wysłane");
+        logger.info("New password sent to: {}",usersRepository.findByLogin(email).get().getLogin());
         String content = "Twoje hasło to: "+ usersRepository.findByLogin(email).get().getPassword();
          emailSender.sendEmail(email, "Przypomnienie hasła", content);
          return "forgotpassword";
