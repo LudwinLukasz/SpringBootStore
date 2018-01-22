@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import pl.SpringStore.models.CustomUserDetails;
 import pl.SpringStore.models.Users;
 import pl.SpringStore.repositories.UsersRepository;
-
 import java.util.Optional;
 
 /**

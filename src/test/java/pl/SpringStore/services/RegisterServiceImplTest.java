@@ -11,6 +11,7 @@ import pl.SpringStore.repositories.RoleRepository;
 import pl.SpringStore.repositories.UsersRepository;
 import pl.SpringStore.services.impl.RegisterServiceImpl;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,12 +45,24 @@ public class RegisterServiceImplTest {
         RegisterForm registerForm = new RegisterForm("ala","ma","kota","kot");
 
         //when
-        Users users = registerService.setUserRole(registerForm);
+        Users user = new Users(registerForm);
+        registerService.setUserRole(user);
 
         //then
-        assertThat(users.getRoles(),is(roles));
+        assertThat(user.getRoles(),is(roles));
 
     }
 
+    @Test
+    public void registerTest() {
+        //given
+        RegisterForm registerForm = new RegisterForm("ala","ma","kota","kot");
+        Users user = new Users(registerForm);
+        user.setRoles(mockRoleRepository.findByRole("USER"));
+        given(mockUsersRepository.findByLogin("kota")).willReturn(java.util.Optional.ofNullable(user));
+
+        //then
+        assertThat(user.getLogin(),is("kota"));
+    }
 
 }

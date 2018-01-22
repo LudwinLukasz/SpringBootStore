@@ -1,7 +1,5 @@
 package pl.SpringStore.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -21,7 +19,6 @@ public class Role {
 
     @ManyToMany(mappedBy="roles",fetch = FetchType.LAZY)
     private Set<Users> users;
-//    @JoinColumn(name = "user_id")
 
     public Role() {
     }

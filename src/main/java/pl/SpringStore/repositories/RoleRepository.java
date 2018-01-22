@@ -2,8 +2,6 @@ package pl.SpringStore.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.SpringStore.models.Role;
-import pl.SpringStore.models.Users;
-
 import java.util.Set;
 
 /**
