@@ -11,7 +11,6 @@ public interface RegisterService {
 
     void register(RegisterForm registerForm);
 
-    //Users setUserRole(RegisterForm registerForm);
     void setUserRole(Users user);
 
     Optional<Users> findByLogin(RegisterForm registerForm);

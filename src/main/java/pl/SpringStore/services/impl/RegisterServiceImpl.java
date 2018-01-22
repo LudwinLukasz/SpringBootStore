@@ -23,6 +23,7 @@ import java.util.Set;
 public class RegisterServiceImpl implements RegisterService {
 
     private static final Logger log = LoggerFactory.getLogger(pl.SpringStore.services.RegisterService.class);
+
     private UsersRepository usersRepository;
     private RoleRepository roleRepository;
 
@@ -40,7 +41,7 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
    public void setUserRole(Users user) {
-        Set<Role> roles = roleRepository.findByRole("USER");
+        Set<Role> roles = roleRepository.findByRoleId(2);
         user.setRoles(roles);
         log.info("Service is assigning role to user: {}",user.getRoles().stream().findAny().get().getRole());
     }
