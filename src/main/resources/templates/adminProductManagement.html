@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf/org">
+<head>
+    <title>Signing in</title>
+    <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sig.css}"/>
+</head>
+<body>
+<div th:replace="fragments/adminMenu :: adminMenu"></div>
+<section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Produkt</h1>
+            <p th:text="${product.name}"></p>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="thumbnail">
+            <div class="form-group">
+                <div class="caption" href="">
+                    <h3><span th:text="${product.name}"></span></h3>
+                    <label for="newName">Name:</label>
+                    <textarea class="form-control" rows="1" id="newName"></textarea>
+                    <p><span th:text="${product.description}"></span></p>
+                    <label for="newDescription">Description:</label>
+                    <textarea class="form-control" rows="5" id="newDescription"></textarea>
+                    <p><span th:text="${product.unitPrice}"></span> PLN</p>
+                    <label for="newPrice">Price:</label>
+                    <textarea class="form-control" id="newPrice" rows="1"></textarea>
+                    <p><span th:text="${product.unitsInStock}"></span> sztuk</p>
+                    <label for="newQuantity">New quantity:</label>
+                    <textarea class="form-control" id="newQuantity" rows="1"></textarea>
+                    <a href="/products/" class="btn btn-primary btn-large">Powrót</a>
+                    <form method="POST" th:action="@{/shoppingCart/addProduct}">
+                        <input type="hidden" name="productId" id="productId" th:value="${product.productId}"/>
+                        <button class="btn btn-warning btn-large" type="submit" name="update" value="value">Aktualizuj
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package pl.SpringStore.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.SpringStore.forms.AddProductForm;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -34,6 +35,13 @@ public class ProductModel {
         this.productId=productId;
         this.name=name;
         this.unitPrice=unitPrice;
+    }
+
+    public ProductModel(AddProductForm form) {
+        this.name = form.getName();
+        this.description = form.getDescription();
+        this.unitPrice = form.getPrice();
+        this.unitsInStock = form.getUnitsInStock();
     }
 
     public int getProductId() {

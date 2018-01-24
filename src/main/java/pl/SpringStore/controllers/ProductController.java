@@ -1,18 +1,23 @@
 package pl.SpringStore.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.SpringStore.forms.AddProductForm;
 import pl.SpringStore.models.Pager;
 import pl.SpringStore.models.ProductModel;
 import pl.SpringStore.services.ProductService;
 import pl.SpringStore.services.impl.ProductServiceImpl;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -21,6 +26,8 @@ import java.util.Optional;
 //@SessionAttributes({"sessionName", "sessionIsLogged"})
 @RequestMapping("/products")
 public class ProductController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     Map<String,String> sessionHash = new HashMap<>(  );
 
@@ -37,11 +44,6 @@ public class ProductController {
     public ProductController(ProductServiceImpl productServiceImpl) {
         this.productServiceImpl = productServiceImpl;
     }
-
-    //@Autowired
-    //CartRepository cart;
-
-    //List<String> listcontrol= new ArrayList<>(  );
 
     @GetMapping("/")
     public ModelAndView showProductPage(@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -68,25 +70,32 @@ public class ProductController {
         return modelAndView;
     }
 
-//    @RequestMapping("")
-//    public String list(Model model) {
-//        model.addAttribute("products", productServiceImpl.findAll());
-//        return "products";
-//    }
-
     @GetMapping("/product")
     public String getProductById(@RequestParam(value = "productId") String productId, Model model) {
         model.addAttribute("product", productServiceImpl.findByProductId(Integer.parseInt(productId)));
         return "product";
     }
 
-//   @GetMapping("/")
-//   String search(@RequestParam(value = "q", required = false) String q, ModelMap modelMap) {
-//       if (q != null) {
-//           modelMap.addAttribute("products", productServiceImpl.findByName(q));
-//       } else {
-//           modelMap.addAttribute("products", productServiceImpl.findAll());
-//       }
-//       return "products";
-//   }
+    @GetMapping("/admin/addProduct")
+    public String addProductGet(Model model) {
+        model.addAttribute("addProductForm", new AddProductForm());
+        return "adminProductManagement";
+    }
+
+    @PostMapping("/admin/addProduct")
+    public String addProduct(@ModelAttribute("addProductForm") @Valid AddProductForm addProductForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            logger.warn("Admin failed to add product");
+            return "adminProductManagement";
+        }
+        if(productService.findByName(addProductForm.getName()).size() > 0) {
+            model.addAttribute("info", "Produkt o tej nazwie istnieje. Napij się kawy!");
+            logger.warn("Admin failed to add product with the same name as other product!");
+            return "adminProductManagement";
+        } else {
+            productService.addProduct(new ProductModel(addProductForm));
+            logger.info("Product: " + addProductForm.getName() + " added successfully!");
+            return "redirect:/adminAllProductsManagement";
+        }
+    }
 }

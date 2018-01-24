@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.SpringStore.forms.AddProductForm;
 import pl.SpringStore.models.ProductModel;
 import pl.SpringStore.repositories.ProductCRUDRepository;
 import pl.SpringStore.repositories.ProductPagingAndSortingRepository;
@@ -16,18 +17,22 @@ import pl.SpringStore.services.ProductService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
+    private AddProductForm addProductForm;
 
     @Autowired
     ProductCRUDRepository productCRUDRepository;
 
     @Autowired
     ProductPagingAndSortingRepository productPagingAndSortingRepository;
+
+
 
     public List<ProductModel> products = new ArrayList<>();
 
@@ -69,4 +74,11 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductModel> findAllPageable(Pageable pageable) {
         return productPagingAndSortingRepository.findAll(pageable);
     }
+
+    @Override
+    public void addProduct(ProductModel product) {
+        ProductModel productModel = new ProductModel(addProductForm);
+        productCRUDRepository.save(productModel);
+    }
+
 }

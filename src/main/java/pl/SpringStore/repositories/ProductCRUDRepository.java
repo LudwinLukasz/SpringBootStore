@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import pl.SpringStore.models.ProductModel;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductCRUDRepository extends CrudRepository<ProductModel, Integer>{
