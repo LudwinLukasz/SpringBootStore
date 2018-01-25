@@ -9,9 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name="product")
-public class ProductModel {
+public class Product {
 
-    @Id
+    @Id @Column(name = "productId")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productId;
 
@@ -28,27 +28,30 @@ public class ProductModel {
     @JsonIgnore
     private List<OrderModel> orders;
 
-    public ProductModel() {
+    public Product() {
     }
 
-    public ProductModel(int productId, String name, BigDecimal unitPrice) {
+    public Product(Integer productId, String name, BigDecimal unitPrice) {
         this.productId=productId;
         this.name=name;
         this.unitPrice=unitPrice;
     }
 
-    public ProductModel(AddProductForm form) {
+    public Product(AddProductForm form) {
         this.name = form.getName();
         this.description = form.getDescription();
-        this.unitPrice = form.getPrice();
+        this.unitPrice = form.getUnitPrice();
         this.unitsInStock = form.getUnitsInStock();
+        this.manufacturer = form.getManufacturer();
+        this.category = form.getCategory();
+        this.discounted = false;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -134,7 +137,7 @@ public class ProductModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProductModel that = (ProductModel) o;
+        Product that = (Product) o;
 
         if (unitsInStock != that.unitsInStock) return false;
         if (unitsInOrder != that.unitsInOrder) return false;

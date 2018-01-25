@@ -3,9 +3,7 @@ package pl.SpringStore.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,7 +24,7 @@ public class OrderModel {
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "productId")}
     )
-    private Set<ProductModel> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -36,18 +34,18 @@ public class OrderModel {
     public OrderModel() {
     }
 
-    public OrderModel( int id, Set<ProductModel> products,Users users) {
+    public OrderModel(int id, Set<Product> products, Users users) {
         this.id = id;
         //this.userId = userId;
         this.products = products;
         this.users=users;
     }
 
-    public Set<ProductModel> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<ProductModel> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 

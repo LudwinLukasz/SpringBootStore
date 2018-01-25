@@ -3,18 +3,18 @@ package pl.SpringStore.models;
 import java.math.BigDecimal;
 
 public class CartItemModel {
-    private ProductModel product;
+    private Product product;
     private int quantity;
     private BigDecimal totalPrice;
 
     public CartItemModel() {
     }
 
-    public ProductModel getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(ProductModel product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

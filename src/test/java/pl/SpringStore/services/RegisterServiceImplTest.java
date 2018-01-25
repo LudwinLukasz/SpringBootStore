@@ -42,7 +42,7 @@ public class RegisterServiceImplTest {
         Set<Role> roles = new HashSet<Role>();
         roles.add(role);
         given(mockRoleRepository.findByRole("USER")).willReturn(roles);
-        RegisterForm registerForm = new RegisterForm("ala","ma","kota","kot");
+        RegisterForm registerForm = new RegisterForm("ala","ma","kota","Koteczek1234");
 
         //when
         Users user = new Users(registerForm);
@@ -56,7 +56,7 @@ public class RegisterServiceImplTest {
     @Test
     public void registerTest() {
         //given
-        RegisterForm registerForm = new RegisterForm("ala","ma","kota","kot");
+        RegisterForm registerForm = new RegisterForm("ala","ma","kota","Koteczek1234");
         Users user = new Users(registerForm);
         user.setRoles(mockRoleRepository.findByRole("USER"));
         given(mockUsersRepository.findByLogin("kota")).willReturn(java.util.Optional.ofNullable(user));

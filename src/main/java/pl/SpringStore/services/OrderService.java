@@ -1,7 +1,7 @@
 package pl.SpringStore.services;
 
 import org.springframework.stereotype.Service;
-import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Product;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -11,11 +11,11 @@ import java.util.Map;
 @Service
 public interface OrderService {
 
-    void addProduct(ProductModel product);
+    void addProduct(Product product);
 
-    void removeProduct(ProductModel product);
+    void removeProduct(Product product);
 
-    Map<ProductModel, Integer> getProductsInCart();
+    Map<Product, Integer> getProductsInCart();
 
     void checkout();
 

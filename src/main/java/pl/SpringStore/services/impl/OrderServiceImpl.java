@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Product;
 import pl.SpringStore.repositories.ProductCRUDRepository;
 import pl.SpringStore.services.OrderService;
 
@@ -26,9 +26,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductCRUDRepository productRepository;
 
-    private Map<ProductModel, Integer> products = new HashMap<>();
+    private Map<Product, Integer> products = new HashMap<>();
 
-    public void addProduct(ProductModel product) {
+    public void addProduct(Product product) {
         if (products.containsKey(product)) {
 
             products.replace(product, products.get(product) + 1);
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    public void removeProduct(ProductModel product) {
+    public void removeProduct(Product product) {
         if (products.containsKey(product)) {
             if (products.get(product) > 1)
                 products.replace(product, products.get(product) - 1);
@@ -49,14 +49,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    public Map<ProductModel, Integer> getProductsInCart() {
+    public Map<Product, Integer> getProductsInCart() {
         return Collections.unmodifiableMap(products);
     }
 
 
     public void checkout()  {
-        ProductModel product;
-        for (Map.Entry<ProductModel, Integer> entry : products.entrySet()) {
+        Product product;
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             // Refresh quantity for every product before checking
             product = productRepository.findOne(entry.getKey().getProductId());
           //  if (product.getUnitsInStock() < entry.getValue())
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 
     public BigDecimal getTotal() {
         BigDecimal total = BigDecimal.ZERO;
-        for (Map.Entry<ProductModel, Integer> entry : products.entrySet()) {
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             total = total.add(entry.getKey().getUnitPrice().multiply(new BigDecimal(entry.getValue())));
         }
         return total;

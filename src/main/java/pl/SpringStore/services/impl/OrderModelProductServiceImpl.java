@@ -1,16 +1,13 @@
 package pl.SpringStore.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 import pl.SpringStore.models.OrderModel;
 import pl.SpringStore.models.OrderModelProduct;
-import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Product;
 import pl.SpringStore.models.Users;
 import pl.SpringStore.repositories.OrderCRUDRepository;
 import pl.SpringStore.repositories.OrderProductCRUDRepository;
@@ -23,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -50,8 +46,8 @@ public class OrderModelProductServiceImpl implements OrderModelProductService {
     private ProductCRUDRepository productCRUDRepository;
 
     public void saveOrder() {
-        Map<ProductModel, Integer> productsInCart = orderService.getProductsInCart();
-        Set<ProductModel> productsInCartSet = productsInCart.keySet();
+        Map<Product, Integer> productsInCart = orderService.getProductsInCart();
+        Set<Product> productsInCartSet = productsInCart.keySet();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -79,11 +75,11 @@ public class OrderModelProductServiceImpl implements OrderModelProductService {
 
         List<OrderModelProduct> currentOrderProductList = orderProductCRUDRepository.findByOrderId(currentOrderId);
 
-        Map<ProductModel, Integer> productsInCart = orderService.getProductsInCart();
+        Map<Product, Integer> productsInCart = orderService.getProductsInCart();
 
         Map<Integer,Integer> productIdQuantityMap = new HashMap<>();
 
-        for (Map.Entry<ProductModel, Integer> entry : productsInCart.entrySet()) {
+        for (Map.Entry<Product, Integer> entry : productsInCart.entrySet()) {
             productIdQuantityMap.put(entry.getKey().getProductId(),entry.getValue());
         }
 

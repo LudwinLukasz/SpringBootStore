@@ -2,17 +2,15 @@ package pl.SpringStore.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import pl.SpringStore.forms.AddProductForm;
-import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Product;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    Iterable<ProductModel> findAll();
-    ProductModel findByProductId(int productId);
-    List<ProductModel> findByName(String name);
-    void addProduct(ProductModel product);
-    Page<ProductModel> findAllPageable(Pageable pageable);
+    Iterable<Product> findAll();
+    Product findByProductId(int productId);
+    Optional<Product> findByName(String name);
+    void addProduct(Product product);
+    Page<Product> findAllPageable(Pageable pageable);
 
 }

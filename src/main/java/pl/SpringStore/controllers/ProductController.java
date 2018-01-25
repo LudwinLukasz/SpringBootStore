@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.SpringStore.forms.AddProductForm;
 import pl.SpringStore.models.Pager;
-import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Product;
 import pl.SpringStore.services.ProductService;
 import pl.SpringStore.services.impl.ProductServiceImpl;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 //@SessionAttributes({"sessionName", "sessionIsLogged"})
@@ -54,7 +52,7 @@ public class ProductController {
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<ProductModel> products = productServiceImpl.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Page<Product> products = productServiceImpl.findAllPageable(new PageRequest(evalPage, evalPageSize));
         Pager pager = new Pager(products.getTotalPages(), products.getNumber(), BUTTONS_TO_SHOW);
 
 
@@ -79,23 +77,23 @@ public class ProductController {
     @GetMapping("/admin/addProduct")
     public String addProductGet(Model model) {
         model.addAttribute("addProductForm", new AddProductForm());
-        return "adminProductManagement";
+        return "adminAddNewProduct";
     }
 
     @PostMapping("/admin/addProduct")
     public String addProduct(@ModelAttribute("addProductForm") @Valid AddProductForm addProductForm, BindingResult result, Model model) {
         if (result.hasErrors()) {
             logger.warn("Admin failed to add product");
-            return "adminProductManagement";
+            return "adminAddNewProduct";
         }
-        if(productService.findByName(addProductForm.getName()).size() > 0) {
+        if(productServiceImpl.findByName(addProductForm.getName()).isPresent()) {
             model.addAttribute("info", "Produkt o tej nazwie istnieje. Napij się kawy!");
             logger.warn("Admin failed to add product with the same name as other product!");
-            return "adminProductManagement";
+            return "adminAddNewProduct";
         } else {
-            productService.addProduct(new ProductModel(addProductForm));
+            productServiceImpl.addProduct(new Product(addProductForm));
             logger.info("Product: " + addProductForm.getName() + " added successfully!");
-            return "redirect:/adminAllProductsManagement";
+            return "redirect:/adminAddNewProduct";
         }
     }
 }

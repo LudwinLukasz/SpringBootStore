@@ -5,11 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.SpringStore.forms.AddProductForm;
-import pl.SpringStore.models.ProductModel;
+import pl.SpringStore.models.Product;
 import pl.SpringStore.repositories.ProductCRUDRepository;
 import pl.SpringStore.repositories.ProductPagingAndSortingRepository;
 import pl.SpringStore.services.ProductService;
@@ -34,10 +33,10 @@ public class ProductServiceImpl implements ProductService {
 
 
 
-    public List<ProductModel> products = new ArrayList<>();
+    public List<Product> products = new ArrayList<>();
 
     @Override
-    public Iterable<ProductModel> findAll() {
+    public Iterable<Product> findAll() {
         try {
             return productCRUDRepository.findAll();
         } catch (Exception e) {
@@ -48,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductModel findByProductId(int productId) {
+    public Product findByProductId(int productId) {
         try {
             return productCRUDRepository.findByProductId(productId);
         } catch (Exception e) {
@@ -58,27 +57,32 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+//    @Override
+//    public List<Product> findByName(String name) {
+//        List<Product> productList = new ArrayList<>();
+//        for (Product p : productCRUDRepository.findAll()) {
+//            if (p.getName().toLowerCase().contains(name.toLowerCase())) {
+//                productList.add(p);
+//            }
+//        }
+//        return productList;
+//    }
+
+
     @Override
-    public List<ProductModel> findByName(String name) {
-        List<ProductModel> productList = new ArrayList<>();
-        for (ProductModel p : productCRUDRepository.findAll()) {
-            if (p.getName().toLowerCase().contains(name.toLowerCase())) {
-                productList.add(p);
-            }
-        }
-        return productList;
+    public Optional<Product> findByName(String name) {
+        return productCRUDRepository.findByName(name);
     }
 
     @Transactional
     @Override
-    public Page<ProductModel> findAllPageable(Pageable pageable) {
+    public Page<Product> findAllPageable(Pageable pageable) {
         return productPagingAndSortingRepository.findAll(pageable);
     }
 
     @Override
-    public void addProduct(ProductModel product) {
-        ProductModel productModel = new ProductModel(addProductForm);
-        productCRUDRepository.save(productModel);
+    public void addProduct(Product product) {
+        productCRUDRepository.save(product);
     }
 
 }

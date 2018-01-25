@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf/org">
+<head>
+    <title>Signing in</title>
+    <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sig.css}"/>
+</head>
+<body>
+<div th:replace="fragments/adminMenu :: adminMenu"></div>
+
+<section class="container">
+    <div class="row">
+        <div class="form-group">
+            <form method="POST" th:object="${addProductForm}" action="/products/admin/addProduct">
+                <label for="newName">Name:</label>
+                <input type="text" class="form-control" rows="1" id="newName" th:field="*{name}">
+                <label for="newDescription">Description:</label>
+                <input type="text" class="form-control" rows="5" id="newDescription" th:field="*{description}">
+                <label for="newPrice">Price:</label>
+                <input type="number" class="form-control" id="newPrice" rows="1" th:field="*{unitPrice}">
+                <label for="manufacturer">Manufacturer:</label>
+                <input type="text" class="form-control" rows="1" id="manufacturer" th:field="*{manufacturer}">
+                <label for="category">Category:</label>
+                <input type="text" class="form-control" rows="1" id="category" th:field="*{category}">
+                <label for="newQuantity">Quantity:</label>
+                <input type="number" class="form-control" id="newQuantity" rows="1" th:field="*{unitsInStock}">
+                <a href="/products/" class="btn btn-primary btn-large">Powrót</a>
+                <button class="btn btn-warning btn-large" type="submit" name="update" value="value">Dodaj
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
